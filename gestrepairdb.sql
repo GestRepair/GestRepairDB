@@ -4,7 +4,7 @@ USE `gestrepair`;
 --
 -- Host: 127.0.0.1    Database: gestrepair
 -- ------------------------------------------------------
--- Server version	5.7.11-log
+-- Server version	5.7.18-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -398,27 +398,53 @@ LOCK TABLES `tbl_reparacao_funcionario` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `tbl_roles_utilizador`
+-- Table structure for table `tbl_role`
 --
 
-DROP TABLE IF EXISTS `tbl_roles_utilizador`;
+DROP TABLE IF EXISTS `tbl_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_roles_utilizador` (
+CREATE TABLE `tbl_role` (
   `idRole` int(11) NOT NULL AUTO_INCREMENT,
-  `nomeRole` varchar(20) DEFAULT NULL,
+  `nameRole` varchar(20) NOT NULL,
   PRIMARY KEY (`idRole`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tbl_roles_utilizador`
+-- Dumping data for table `tbl_role`
 --
 
-LOCK TABLES `tbl_roles_utilizador` WRITE;
-/*!40000 ALTER TABLE `tbl_roles_utilizador` DISABLE KEYS */;
-INSERT INTO `tbl_roles_utilizador` VALUES (1,'Administrador'),(2,'Gestor'),(3,'Funcionário'),(4,'Cliente');
-/*!40000 ALTER TABLE `tbl_roles_utilizador` ENABLE KEYS */;
+LOCK TABLES `tbl_role` WRITE;
+/*!40000 ALTER TABLE `tbl_role` DISABLE KEYS */;
+INSERT INTO `tbl_role` VALUES (1,'Administrador'),(2,'Gestor'),(3,'Funcionário'),(4,'Cliente');
+/*!40000 ALTER TABLE `tbl_role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_schedule`
+--
+
+DROP TABLE IF EXISTS `tbl_schedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_schedule` (
+  `idSchedule` int(11) NOT NULL,
+  `service` int(11) NOT NULL,
+  `vehicle` int(11) NOT NULL,
+  `dataSchedule` datetime DEFAULT NULL,
+  PRIMARY KEY (`idSchedule`),
+  UNIQUE KEY `dataSchedule_UNIQUE` (`dataSchedule`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_schedule`
+--
+
+LOCK TABLES `tbl_schedule` WRITE;
+/*!40000 ALTER TABLE `tbl_schedule` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_schedule` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -545,60 +571,6 @@ LOCK TABLES `tbl_veiculo` WRITE;
 INSERT INTO `tbl_veiculo` VALUES (1,'99-33-HH',1,22,33,1991999,1,'99','99',1997),(2,'88-00-XX',2,3,43,222333,2,'33','33',2004),(3,'88-22-ZZ',3,22,34,133223,1,'33','22',2005);
 /*!40000 ALTER TABLE `tbl_veiculo` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'gestrepair'
---
-
---
--- Dumping routines for database 'gestrepair'
---
-/*!50003 DROP PROCEDURE IF EXISTS `infouser` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `infouser`(IN `iduser` INT)
-BEGIN 
-select tbauth.username as username, tbauth.password as password, tbuser.nome as nome, tbuser.morada as morada, tbuser.codPostal as codPostal, tbuser.localidade as localidade, tbuser.email as email, tbuser.nif as nif, tbuser.contacto as contacto, tbroleuser.nomeRole 
-from tbl_autenticacao tbauth, tbl_utilizadores tbuser, tbl_roles_utilizador tbroleuser 
-WHERE tbauth.utilizador = tbuser.numUtilizador 
-and tbauth.role = tbroleuser.idRole
-and tbauth.utilizador = iduser 
-LIMIT 1;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `listuser` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listuser`()
-BEGIN 
-select `tbuser`.`numUtilizador` as `numutilizador`, `tbauth`.`username` as `username`, `tbuser.nome` as `nome`, `tbuser`.`morada` as `morada`, `tbuser`.`codPostal` as `codPostal`, `tbuser`.`localidade` as `localidade`, `tbuser`.`email` as `email`, `tbuser`.`nif` as `nif`, `tbuser`.`contacto` as `contacto`, `tbroleuser`.`nomeRole` 
-from `tbl_autenticacao` `tbauth`, `tbl_utilizadores` `tbuser`, `tbl_roles_utilizador` `tbroleuser` 
-WHERE `tbauth`.`utilizador` = `tbuser`.`numUtilizador`
-and `tbauth`.`role` = `tbroleuser`.`idRole`;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -609,4 +581,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-12 23:57:06
+-- Dump completed on 2017-07-14 22:56:36
