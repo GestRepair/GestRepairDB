@@ -43,6 +43,57 @@ INSERT INTO `tbl_brand` VALUES (4,'Ford'),(1,'Hyundai'),(3,'Mercedes Benz'),(2,'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tbl_employer`
+--
+
+DROP TABLE IF EXISTS `tbl_employer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_employer` (
+  `idEmployer` int(11) NOT NULL AUTO_INCREMENT,
+  `user` int(11) NOT NULL,
+  `service` int(11) NOT NULL,
+  `isActive` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idEmployer`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_employer`
+--
+
+LOCK TABLES `tbl_employer` WRITE;
+/*!40000 ALTER TABLE `tbl_employer` DISABLE KEYS */;
+INSERT INTO `tbl_employer` VALUES (1,1,1,1),(2,2,2,1),(3,3,3,1);
+/*!40000 ALTER TABLE `tbl_employer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_employer_repair`
+--
+
+DROP TABLE IF EXISTS `tbl_employer_repair`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_employer_repair` (
+  `employer` int(11) NOT NULL,
+  `repair` int(11) NOT NULL,
+  PRIMARY KEY (`employer`,`repair`),
+  KEY `repFK` (`repair`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_employer_repair`
+--
+
+LOCK TABLES `tbl_employer_repair` WRITE;
+/*!40000 ALTER TABLE `tbl_employer_repair` DISABLE KEYS */;
+INSERT INTO `tbl_employer_repair` VALUES (3,1),(3,2);
+/*!40000 ALTER TABLE `tbl_employer_repair` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbl_encomenda`
 --
 
@@ -93,29 +144,6 @@ LOCK TABLES `tbl_estado_orcamento` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `tbl_estado_reparacao`
---
-
-DROP TABLE IF EXISTS `tbl_estado_reparacao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_estado_reparacao` (
-  `idEstado` int(11) NOT NULL AUTO_INCREMENT,
-  `estado` varchar(25) DEFAULT NULL,
-  PRIMARY KEY (`idEstado`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbl_estado_reparacao`
---
-
-LOCK TABLES `tbl_estado_reparacao` WRITE;
-/*!40000 ALTER TABLE `tbl_estado_reparacao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_estado_reparacao` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tbl_fornecedor`
 --
 
@@ -160,31 +188,6 @@ LOCK TABLES `tbl_fuel` WRITE;
 /*!40000 ALTER TABLE `tbl_fuel` DISABLE KEYS */;
 INSERT INTO `tbl_fuel` VALUES (1,'Gasolina Sem-Chumbo 95'),(2,'Gasoleo'),(3,'Gasolina Sem Chumbo 98'),(4,'GPL');
 /*!40000 ALTER TABLE `tbl_fuel` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tbl_funcionario`
---
-
-DROP TABLE IF EXISTS `tbl_funcionario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_funcionario` (
-  `idFunc` int(11) NOT NULL AUTO_INCREMENT,
-  `numUser` int(11) NOT NULL,
-  `activo` tinyint(1) NOT NULL,
-  PRIMARY KEY (`numUser`,`idFunc`),
-  KEY `funcfw` (`idFunc`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbl_funcionario`
---
-
-LOCK TABLES `tbl_funcionario` WRITE;
-/*!40000 ALTER TABLE `tbl_funcionario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -245,53 +248,55 @@ LOCK TABLES `tbl_orcamentos` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `tbl_peca`
+-- Table structure for table `tbl_part`
 --
 
-DROP TABLE IF EXISTS `tbl_peca`;
+DROP TABLE IF EXISTS `tbl_part`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_peca` (
-  `idpeca` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(25) DEFAULT NULL,
-  `descricao` text,
-  `quantidade` int(11) DEFAULT NULL,
-  `preco` float NOT NULL,
-  PRIMARY KEY (`idpeca`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+CREATE TABLE `tbl_part` (
+  `idPart` int(11) NOT NULL AUTO_INCREMENT,
+  `namePart` varchar(25) NOT NULL,
+  `description` text,
+  `quantidade` int(11) NOT NULL DEFAULT '0',
+  `price` float DEFAULT NULL,
+  PRIMARY KEY (`idPart`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tbl_peca`
+-- Dumping data for table `tbl_part`
 --
 
-LOCK TABLES `tbl_peca` WRITE;
-/*!40000 ALTER TABLE `tbl_peca` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_peca` ENABLE KEYS */;
+LOCK TABLES `tbl_part` WRITE;
+/*!40000 ALTER TABLE `tbl_part` DISABLE KEYS */;
+INSERT INTO `tbl_part` VALUES (1,'Capo Mercedes','Capo Mercedes',55,300),(2,'Capa Espelho Esquerdo','Com acessórios',34,50);
+/*!40000 ALTER TABLE `tbl_part` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `tbl_peca_reparacao`
+-- Table structure for table `tbl_part_repair`
 --
 
-DROP TABLE IF EXISTS `tbl_peca_reparacao`;
+DROP TABLE IF EXISTS `tbl_part_repair`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_peca_reparacao` (
-  `idreparacao` int(11) NOT NULL AUTO_INCREMENT,
-  `idpeca` int(11) NOT NULL,
-  PRIMARY KEY (`idreparacao`,`idpeca`),
-  KEY `pecafk` (`idpeca`)
+CREATE TABLE `tbl_part_repair` (
+  `repair` int(11) NOT NULL,
+  `part` int(11) NOT NULL,
+  PRIMARY KEY (`repair`,`part`),
+  KEY `pecafk` (`part`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tbl_peca_reparacao`
+-- Dumping data for table `tbl_part_repair`
 --
 
-LOCK TABLES `tbl_peca_reparacao` WRITE;
-/*!40000 ALTER TABLE `tbl_peca_reparacao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_peca_reparacao` ENABLE KEYS */;
+LOCK TABLES `tbl_part_repair` WRITE;
+/*!40000 ALTER TABLE `tbl_part_repair` DISABLE KEYS */;
+INSERT INTO `tbl_part_repair` VALUES (1,1),(2,1),(1,2);
+/*!40000 ALTER TABLE `tbl_part_repair` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -343,58 +348,35 @@ LOCK TABLES `tbl_pecafornecida` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `tbl_reparacao`
+-- Table structure for table `tbl_repair`
 --
 
-DROP TABLE IF EXISTS `tbl_reparacao`;
+DROP TABLE IF EXISTS `tbl_repair`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_reparacao` (
-  `idReparacao` int(11) NOT NULL AUTO_INCREMENT,
-  `veiculo` int(11) DEFAULT NULL,
-  `descricao` text,
-  `preco` float DEFAULT NULL,
-  `estadoReparacao` int(11) DEFAULT NULL,
-  `dataInicio` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `datafim` datetime DEFAULT NULL,
-  `aReparar` text NOT NULL,
-  PRIMARY KEY (`idReparacao`),
-  KEY `veiculoFK` (`veiculo`),
-  KEY `estadoFK` (`estadoReparacao`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+CREATE TABLE `tbl_repair` (
+  `idRepair` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `price` float DEFAULT NULL,
+  `state` int(11) NOT NULL,
+  `startDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `finishDate` datetime DEFAULT NULL,
+  `information` text,
+  PRIMARY KEY (`idRepair`),
+  KEY `veiculoFK` (`vehicle`),
+  KEY `estadoFK` (`state`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tbl_reparacao`
+-- Dumping data for table `tbl_repair`
 --
 
-LOCK TABLES `tbl_reparacao` WRITE;
-/*!40000 ALTER TABLE `tbl_reparacao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_reparacao` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tbl_reparacao_funcionario`
---
-
-DROP TABLE IF EXISTS `tbl_reparacao_funcionario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_reparacao_funcionario` (
-  `funcionario` int(11) NOT NULL,
-  `reparacao` int(11) NOT NULL,
-  PRIMARY KEY (`funcionario`,`reparacao`),
-  KEY `repFK` (`reparacao`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbl_reparacao_funcionario`
---
-
-LOCK TABLES `tbl_reparacao_funcionario` WRITE;
-/*!40000 ALTER TABLE `tbl_reparacao_funcionario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_reparacao_funcionario` ENABLE KEYS */;
+LOCK TABLES `tbl_repair` WRITE;
+/*!40000 ALTER TABLE `tbl_repair` DISABLE KEYS */;
+INSERT INTO `tbl_repair` VALUES (1,1,'Batido no Espelho Lado Esquerdo',NULL,2,'2017-07-17 23:00:00',NULL,'Substituição do Espelho'),(2,2,'Capo Amolgado',NULL,2,'2017-07-18 21:26:13',NULL,NULL);
+/*!40000 ALTER TABLE `tbl_repair` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -444,7 +426,7 @@ CREATE TABLE `tbl_schedule` (
 
 LOCK TABLES `tbl_schedule` WRITE;
 /*!40000 ALTER TABLE `tbl_schedule` DISABLE KEYS */;
-INSERT INTO `tbl_schedule` VALUES (4,3,2,'2017-09-21 00:00:00',1),(5,3,2,'2018-02-01 00:00:00',1),(6,3,2,'2017-07-26 09:49:00',1),(7,2,1,'2017-07-19 09:51:00',0),(8,2,1,'2019-01-01 10:00:00',1),(9,2,1,'2017-08-01 15:21:00',1);
+INSERT INTO `tbl_schedule` VALUES (4,3,2,'2017-09-21 00:00:00',1),(5,3,2,'2018-02-01 00:00:00',1),(6,3,2,'2017-07-26 09:49:00',1),(7,8,1,'2017-07-19 09:51:00',0),(8,9,1,'2019-01-01 10:00:00',1),(9,8,1,'2017-08-01 15:21:00',1);
 /*!40000 ALTER TABLE `tbl_schedule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -458,11 +440,11 @@ DROP TABLE IF EXISTS `tbl_service`;
 CREATE TABLE `tbl_service` (
   `idService` int(11) NOT NULL AUTO_INCREMENT,
   `nameService` varchar(15) NOT NULL,
-  `priceService` float NOT NULL,
-  `description` varchar(255) NOT NULL,
+  `priceService` float DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `photo` varchar(255) NOT NULL DEFAULT 'serviceDefphoto.jpeg',
   PRIMARY KEY (`idService`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -471,8 +453,32 @@ CREATE TABLE `tbl_service` (
 
 LOCK TABLES `tbl_service` WRITE;
 /*!40000 ALTER TABLE `tbl_service` DISABLE KEYS */;
-INSERT INTO `tbl_service` VALUES (1,'Pintura',25,'Pintura de Automóveis','serviceDefphoto.jpeg'),(2,'Revisão',20,'Mudança do Oleo','serviceDefphoto.jpeg'),(3,'Bate-Chapas',20,'Reparação ou Substituição de Chapas','serviceDefphoto.jpeg');
+INSERT INTO `tbl_service` VALUES (1,'Administrador',0,' ','serviceDefphoto.jpeg'),(2,'Gestor',0,' ','serviceDefphoto.jpeg'),(3,'Bate-Chapas',20,'Reparação ou Substituição de Chapas','serviceDefphoto.jpeg'),(8,'Pintura',25,'Pintura de Automóveis','serviceDefphoto.jpeg'),(9,'Revisão',20,'Mudança do Oleo','serviceDefphoto.jpeg');
 /*!40000 ALTER TABLE `tbl_service` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_state_repair`
+--
+
+DROP TABLE IF EXISTS `tbl_state_repair`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_state_repair` (
+  `idstate` int(11) NOT NULL AUTO_INCREMENT,
+  `nameState` varchar(25) NOT NULL,
+  PRIMARY KEY (`idstate`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_state_repair`
+--
+
+LOCK TABLES `tbl_state_repair` WRITE;
+/*!40000 ALTER TABLE `tbl_state_repair` DISABLE KEYS */;
+INSERT INTO `tbl_state_repair` VALUES (1,'Diagonóstico'),(2,'A Reparar'),(3,'Reparado'),(4,'Entregue');
+/*!40000 ALTER TABLE `tbl_state_repair` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -581,4 +587,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-18 15:59:52
+-- Dump completed on 2017-07-18 22:40:04
