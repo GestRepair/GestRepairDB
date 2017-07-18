@@ -1,177 +1,227 @@
--- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+CREATE DATABASE  IF NOT EXISTS `gestrepair` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `gestrepair`;
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost
--- Generation Time: 17-Jul-2017 às 15:27
--- Versão do servidor: 10.1.21-MariaDB
--- PHP Version: 7.1.1
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
+-- Host: 127.0.0.1    Database: gestrepair
+-- ------------------------------------------------------
+-- Server version	5.7.18-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Database: `gestrepair`
+-- Table structure for table `tbl_brand`
 --
 
-DELIMITER $$
---
--- Procedures
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `infouser` (IN `iduser` INT)  BEGIN 
-select tbauth.username as username, tbauth.password as password, tbuser.nome as nome, tbuser.morada as morada, tbuser.codPostal as codPostal, tbuser.localidade as localidade, tbuser.email as email, tbuser.nif as nif, tbuser.contacto as contacto, tbroleuser.nomeRole 
-from tbl_autenticacao tbauth, tbl_utilizadores tbuser, tbl_roles_utilizador tbroleuser 
-WHERE tbauth.utilizador = tbuser.numUtilizador 
-and tbauth.role = tbroleuser.idRole
-and tbauth.utilizador = iduser 
-LIMIT 1;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listuser` ()  BEGIN 
-select `tbuser`.`numUtilizador` as `numutilizador`, `tbauth`.`username` as `username`, `tbuser.nome` as `nome`, `tbuser`.`morada` as `morada`, `tbuser`.`codPostal` as `codPostal`, `tbuser`.`localidade` as `localidade`, `tbuser`.`email` as `email`, `tbuser`.`nif` as `nif`, `tbuser`.`contacto` as `contacto`, `tbroleuser`.`nomeRole` 
-from `tbl_autenticacao` `tbauth`, `tbl_utilizadores` `tbuser`, `tbl_roles_utilizador` `tbroleuser` 
-WHERE `tbauth`.`utilizador` = `tbuser`.`numUtilizador`
-and `tbauth`.`role` = `tbroleuser`.`idRole`;
-END$$
-
-DELIMITER ;
-
--- --------------------------------------------------------
+DROP TABLE IF EXISTS `tbl_brand`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_brand` (
+  `idBrand` int(11) NOT NULL AUTO_INCREMENT,
+  `nameBrand` varchar(25) NOT NULL,
+  PRIMARY KEY (`idBrand`),
+  UNIQUE KEY `marca` (`nameBrand`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estrutura da tabela `tbl_combustivel`
+-- Dumping data for table `tbl_brand`
 --
 
-CREATE TABLE `tbl_combustivel` (
-  `idCombustivel` int(11) NOT NULL,
-  `Combustivel` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+LOCK TABLES `tbl_brand` WRITE;
+/*!40000 ALTER TABLE `tbl_brand` DISABLE KEYS */;
+INSERT INTO `tbl_brand` VALUES (4,'Ford'),(1,'Hyundai'),(3,'Mercedes Benz'),(2,'Volvo');
+/*!40000 ALTER TABLE `tbl_brand` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Extraindo dados da tabela `tbl_combustivel`
+-- Table structure for table `tbl_encomenda`
 --
 
-INSERT INTO `tbl_combustivel` (`idCombustivel`, `Combustivel`) VALUES
-(1, 'Gasolina Sem-Chumbo 95'),
-(2, 'Gasoleo'),
-(3, 'Gasolina Sem Chumbo 98'),
-(4, 'GPL');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tbl_encomenda`
---
-
+DROP TABLE IF EXISTS `tbl_encomenda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_encomenda` (
-  `id_encomenda` int(11) NOT NULL,
+  `id_encomenda` int(11) NOT NULL AUTO_INCREMENT,
   `fornecedor` int(11) NOT NULL,
   `peca` int(11) NOT NULL,
-  `quantidade` int(11) NOT NULL
+  `quantidade` int(11) NOT NULL,
+  PRIMARY KEY (`id_encomenda`),
+  KEY `fornecedorfk` (`fornecedor`),
+  KEY `pecaencomendafk` (`peca`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estrutura da tabela `tbl_estado_orcamento`
+-- Dumping data for table `tbl_encomenda`
 --
 
+LOCK TABLES `tbl_encomenda` WRITE;
+/*!40000 ALTER TABLE `tbl_encomenda` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_encomenda` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_estado_orcamento`
+--
+
+DROP TABLE IF EXISTS `tbl_estado_orcamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_estado_orcamento` (
-  `id_estadoOrc` int(11) NOT NULL,
-  `estadoOrcamento` varchar(30) NOT NULL
+  `id_estadoOrc` int(11) NOT NULL AUTO_INCREMENT,
+  `estadoOrcamento` varchar(30) NOT NULL,
+  PRIMARY KEY (`id_estadoOrc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estrutura da tabela `tbl_estado_reparacao`
+-- Dumping data for table `tbl_estado_orcamento`
 --
 
+LOCK TABLES `tbl_estado_orcamento` WRITE;
+/*!40000 ALTER TABLE `tbl_estado_orcamento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_estado_orcamento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_estado_reparacao`
+--
+
+DROP TABLE IF EXISTS `tbl_estado_reparacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_estado_reparacao` (
-  `idEstado` int(11) NOT NULL,
-  `estado` varchar(25) DEFAULT NULL
+  `idEstado` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`idEstado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estrutura da tabela `tbl_fornecedor`
+-- Dumping data for table `tbl_estado_reparacao`
 --
 
+LOCK TABLES `tbl_estado_reparacao` WRITE;
+/*!40000 ALTER TABLE `tbl_estado_reparacao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_estado_reparacao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_fornecedor`
+--
+
+DROP TABLE IF EXISTS `tbl_fornecedor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_fornecedor` (
-  `id_fornecedor` int(11) NOT NULL,
-  `nomeFornecedor` varchar(25) NOT NULL
+  `id_fornecedor` int(11) NOT NULL AUTO_INCREMENT,
+  `nomeFornecedor` varchar(25) NOT NULL,
+  PRIMARY KEY (`id_fornecedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estrutura da tabela `tbl_funcionario`
+-- Dumping data for table `tbl_fornecedor`
 --
 
+LOCK TABLES `tbl_fornecedor` WRITE;
+/*!40000 ALTER TABLE `tbl_fornecedor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_fornecedor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_fuel`
+--
+
+DROP TABLE IF EXISTS `tbl_fuel`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_fuel` (
+  `idFuel` int(11) NOT NULL AUTO_INCREMENT,
+  `nameFuel` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`idFuel`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_fuel`
+--
+
+LOCK TABLES `tbl_fuel` WRITE;
+/*!40000 ALTER TABLE `tbl_fuel` DISABLE KEYS */;
+INSERT INTO `tbl_fuel` VALUES (1,'Gasolina Sem-Chumbo 95'),(2,'Gasoleo'),(3,'Gasolina Sem Chumbo 98'),(4,'GPL');
+/*!40000 ALTER TABLE `tbl_fuel` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_funcionario`
+--
+
+DROP TABLE IF EXISTS `tbl_funcionario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_funcionario` (
-  `idFunc` int(11) NOT NULL,
+  `idFunc` int(11) NOT NULL AUTO_INCREMENT,
   `numUser` int(11) NOT NULL,
-  `activo` tinyint(1) NOT NULL
+  `activo` tinyint(1) NOT NULL,
+  PRIMARY KEY (`numUser`,`idFunc`),
+  KEY `funcfw` (`idFunc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tbl_marcaveiculo`
---
-
-CREATE TABLE `tbl_marcaveiculo` (
-  `idMarca` int(11) NOT NULL,
-  `marca` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Extraindo dados da tabela `tbl_marcaveiculo`
+-- Dumping data for table `tbl_funcionario`
 --
 
-INSERT INTO `tbl_marcaveiculo` (`idMarca`, `marca`) VALUES
-(4, 'Ford'),
-(1, 'Hyundai'),
-(3, 'Mercedes Benz'),
-(2, 'Volvo');
-
--- --------------------------------------------------------
+LOCK TABLES `tbl_funcionario` WRITE;
+/*!40000 ALTER TABLE `tbl_funcionario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_funcionario` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estrutura da tabela `tbl_modeloveiculo`
+-- Table structure for table `tbl_model`
 --
 
-CREATE TABLE `tbl_modeloveiculo` (
-  `idModelo` int(11) NOT NULL,
-  `modeloVeiculo` varchar(25) NOT NULL,
-  `marca` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `tbl_model`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_model` (
+  `idModel` int(11) NOT NULL AUTO_INCREMENT,
+  `nameModel` varchar(25) NOT NULL,
+  `brand` int(11) NOT NULL,
+  PRIMARY KEY (`idModel`),
+  KEY `marcafk` (`brand`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Extraindo dados da tabela `tbl_modeloveiculo`
+-- Dumping data for table `tbl_model`
 --
 
-INSERT INTO `tbl_modeloveiculo` (`idModelo`, `modeloVeiculo`, `marca`) VALUES
-(1, 'H1', 1),
-(2, 'S80', 2),
-(3, 'B180', 3),
-(4, 'Fiesta', 4);
-
--- --------------------------------------------------------
+LOCK TABLES `tbl_model` WRITE;
+/*!40000 ALTER TABLE `tbl_model` DISABLE KEYS */;
+INSERT INTO `tbl_model` VALUES (1,'H1',1),(2,'S80',2),(3,'B180',3),(4,'Fiesta',4);
+/*!40000 ALTER TABLE `tbl_model` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estrutura da tabela `tbl_orcamentos`
+-- Table structure for table `tbl_orcamentos`
 --
 
+DROP TABLE IF EXISTS `tbl_orcamentos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_orcamentos` (
-  `id_orcamento` int(11) NOT NULL,
+  `id_orcamento` int(11) NOT NULL AUTO_INCREMENT,
   `veiculo` int(11) NOT NULL,
   `descricao` text NOT NULL,
   `preco` float NOT NULL,
@@ -179,517 +229,356 @@ CREATE TABLE `tbl_orcamentos` (
   `TempoReparacao` int(11) NOT NULL,
   `estadoorcamento` int(11) NOT NULL,
   `DataFimOrcamento` date NOT NULL,
-  `resolucao` text NOT NULL
+  `resolucao` text NOT NULL,
+  PRIMARY KEY (`id_orcamento`),
+  KEY `veic_fk` (`veiculo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estrutura da tabela `tbl_peca`
+-- Dumping data for table `tbl_orcamentos`
 --
 
+LOCK TABLES `tbl_orcamentos` WRITE;
+/*!40000 ALTER TABLE `tbl_orcamentos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_orcamentos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_peca`
+--
+
+DROP TABLE IF EXISTS `tbl_peca`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_peca` (
-  `idpeca` int(11) NOT NULL,
+  `idpeca` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(25) DEFAULT NULL,
   `descricao` text,
   `quantidade` int(11) DEFAULT NULL,
-  `preco` float NOT NULL
+  `preco` float NOT NULL,
+  PRIMARY KEY (`idpeca`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tbl_pecafornecedor`
---
-
-CREATE TABLE `tbl_pecafornecedor` (
-  `idpeca` int(11) NOT NULL,
-  `idfornecedor` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estrutura da tabela `tbl_pecafornecida`
+-- Dumping data for table `tbl_peca`
 --
 
-CREATE TABLE `tbl_pecafornecida` (
-  `idpecafornecida` int(11) NOT NULL,
-  `pecafornecida` varchar(50) DEFAULT NULL,
-  `fornecedor` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+LOCK TABLES `tbl_peca` WRITE;
+/*!40000 ALTER TABLE `tbl_peca` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_peca` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estrutura da tabela `tbl_peca_reparacao`
+-- Table structure for table `tbl_peca_reparacao`
 --
 
+DROP TABLE IF EXISTS `tbl_peca_reparacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_peca_reparacao` (
-  `idreparacao` int(11) NOT NULL,
-  `idpeca` int(11) NOT NULL
+  `idreparacao` int(11) NOT NULL AUTO_INCREMENT,
+  `idpeca` int(11) NOT NULL,
+  PRIMARY KEY (`idreparacao`,`idpeca`),
+  KEY `pecafk` (`idpeca`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estrutura da tabela `tbl_reparacao`
+-- Dumping data for table `tbl_peca_reparacao`
 --
 
+LOCK TABLES `tbl_peca_reparacao` WRITE;
+/*!40000 ALTER TABLE `tbl_peca_reparacao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_peca_reparacao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_pecafornecedor`
+--
+
+DROP TABLE IF EXISTS `tbl_pecafornecedor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_pecafornecedor` (
+  `idpeca` int(11) NOT NULL AUTO_INCREMENT,
+  `idfornecedor` int(11) NOT NULL,
+  PRIMARY KEY (`idpeca`,`idfornecedor`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_pecafornecedor`
+--
+
+LOCK TABLES `tbl_pecafornecedor` WRITE;
+/*!40000 ALTER TABLE `tbl_pecafornecedor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_pecafornecedor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_pecafornecida`
+--
+
+DROP TABLE IF EXISTS `tbl_pecafornecida`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_pecafornecida` (
+  `idpecafornecida` int(11) NOT NULL AUTO_INCREMENT,
+  `pecafornecida` varchar(50) DEFAULT NULL,
+  `fornecedor` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idpecafornecida`),
+  KEY `pecafornecidafornecedorFK` (`fornecedor`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_pecafornecida`
+--
+
+LOCK TABLES `tbl_pecafornecida` WRITE;
+/*!40000 ALTER TABLE `tbl_pecafornecida` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_pecafornecida` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_reparacao`
+--
+
+DROP TABLE IF EXISTS `tbl_reparacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_reparacao` (
-  `idReparacao` int(11) NOT NULL,
+  `idReparacao` int(11) NOT NULL AUTO_INCREMENT,
   `veiculo` int(11) DEFAULT NULL,
   `descricao` text,
   `preco` float DEFAULT NULL,
   `estadoReparacao` int(11) DEFAULT NULL,
   `dataInicio` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `datafim` datetime DEFAULT NULL,
-  `aReparar` text NOT NULL
+  `aReparar` text NOT NULL,
+  PRIMARY KEY (`idReparacao`),
+  KEY `veiculoFK` (`veiculo`),
+  KEY `estadoFK` (`estadoReparacao`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estrutura da tabela `tbl_reparacao_funcionario`
+-- Dumping data for table `tbl_reparacao`
 --
 
+LOCK TABLES `tbl_reparacao` WRITE;
+/*!40000 ALTER TABLE `tbl_reparacao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_reparacao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_reparacao_funcionario`
+--
+
+DROP TABLE IF EXISTS `tbl_reparacao_funcionario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_reparacao_funcionario` (
   `funcionario` int(11) NOT NULL,
-  `reparacao` int(11) NOT NULL
+  `reparacao` int(11) NOT NULL,
+  PRIMARY KEY (`funcionario`,`reparacao`),
+  KEY `repFK` (`reparacao`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estrutura da tabela `tbl_role`
+-- Dumping data for table `tbl_reparacao_funcionario`
 --
 
+LOCK TABLES `tbl_reparacao_funcionario` WRITE;
+/*!40000 ALTER TABLE `tbl_reparacao_funcionario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_reparacao_funcionario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_role`
+--
+
+DROP TABLE IF EXISTS `tbl_role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_role` (
-  `idRole` int(11) NOT NULL,
-  `nameRole` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+  `idRole` int(11) NOT NULL AUTO_INCREMENT,
+  `nameRole` varchar(20) NOT NULL,
+  PRIMARY KEY (`idRole`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Extraindo dados da tabela `tbl_role`
+-- Dumping data for table `tbl_role`
 --
 
-INSERT INTO `tbl_role` (`idRole`, `nameRole`) VALUES
-(1, 'Administrador'),
-(2, 'Gestor'),
-(3, 'Funcionário'),
-(4, 'Cliente');
-
--- --------------------------------------------------------
+LOCK TABLES `tbl_role` WRITE;
+/*!40000 ALTER TABLE `tbl_role` DISABLE KEYS */;
+INSERT INTO `tbl_role` VALUES (1,'Administrador'),(2,'Gestor'),(3,'Funcionário'),(4,'Cliente');
+/*!40000 ALTER TABLE `tbl_role` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estrutura da tabela `tbl_roles_utilizador`
+-- Table structure for table `tbl_schedule`
 --
 
-CREATE TABLE `tbl_roles_utilizador` (
-  `idRole` int(11) NOT NULL,
-  `nomeRole` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Extraindo dados da tabela `tbl_roles_utilizador`
---
-
-INSERT INTO `tbl_roles_utilizador` (`idRole`, `nomeRole`) VALUES
-(1, 'Administrador'),
-(2, 'Gestor'),
-(3, 'Funcionário'),
-(4, 'Cliente');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tbl_schedule`
---
-
+DROP TABLE IF EXISTS `tbl_schedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_schedule` (
-  `idSchedule` int(11) NOT NULL,
+  `idSchedule` int(11) NOT NULL AUTO_INCREMENT,
   `service` int(11) NOT NULL,
   `vehicle` int(11) NOT NULL,
   `date` datetime NOT NULL,
-  `isActive` tinyint(4) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `isActive` tinyint(4) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idSchedule`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Extraindo dados da tabela `tbl_schedule`
+-- Dumping data for table `tbl_schedule`
 --
 
-INSERT INTO `tbl_schedule` (`idSchedule`, `service`, `vehicle`, `date`, `isActive`) VALUES
-(4, 3, 2, '2017-09-21 00:00:00', 1),
-(5, 3, 2, '2018-02-01 00:00:00', 1),
-(6, 3, 2, '2017-07-26 09:49:00', 1),
-(7, 2, 1, '2017-07-19 09:51:00', 1),
-(8, 2, 1, '0000-00-00 00:00:00', 1);
-
--- --------------------------------------------------------
+LOCK TABLES `tbl_schedule` WRITE;
+/*!40000 ALTER TABLE `tbl_schedule` DISABLE KEYS */;
+INSERT INTO `tbl_schedule` VALUES (4,3,2,'2017-09-21 00:00:00',1),(5,3,2,'2018-02-01 00:00:00',1),(6,3,2,'2017-07-26 09:49:00',1),(7,2,1,'2017-07-19 09:51:00',0),(8,2,1,'2019-01-01 10:00:00',1),(9,2,1,'2017-08-01 15:21:00',1);
+/*!40000 ALTER TABLE `tbl_schedule` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estrutura da tabela `tbl_service`
+-- Table structure for table `tbl_service`
 --
 
+DROP TABLE IF EXISTS `tbl_service`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_service` (
-  `idService` int(11) NOT NULL,
+  `idService` int(11) NOT NULL AUTO_INCREMENT,
   `nameService` varchar(15) NOT NULL,
   `priceService` float NOT NULL,
   `description` varchar(255) NOT NULL,
-  `photo` varchar(255) NOT NULL DEFAULT 'serviceDefphoto.jpeg'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+  `photo` varchar(255) NOT NULL DEFAULT 'serviceDefphoto.jpeg',
+  PRIMARY KEY (`idService`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Extraindo dados da tabela `tbl_service`
+-- Dumping data for table `tbl_service`
 --
 
-INSERT INTO `tbl_service` (`idService`, `nameService`, `priceService`, `description`, `photo`) VALUES
-(1, 'Pintura', 25, 'Pintura de Automóveis', 'serviceDefphoto.jpeg'),
-(2, 'Revisão', 20, 'Mudança do Oleo', 'serviceDefphoto.jpeg'),
-(3, 'Bate-Chapas', 20, 'Reparação ou Substituição de Chapas', 'serviceDefphoto.jpeg');
-
--- --------------------------------------------------------
+LOCK TABLES `tbl_service` WRITE;
+/*!40000 ALTER TABLE `tbl_service` DISABLE KEYS */;
+INSERT INTO `tbl_service` VALUES (1,'Pintura',25,'Pintura de Automóveis','serviceDefphoto.jpeg'),(2,'Revisão',20,'Mudança do Oleo','serviceDefphoto.jpeg'),(3,'Bate-Chapas',20,'Reparação ou Substituição de Chapas','serviceDefphoto.jpeg');
+/*!40000 ALTER TABLE `tbl_service` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estrutura da tabela `tbl_utilizadores`
+-- Table structure for table `tbl_user`
 --
 
-CREATE TABLE `tbl_utilizadores` (
-  `numUtilizador` int(11) NOT NULL,
-  `nome` varchar(50) NOT NULL,
-  `morada` varchar(50) NOT NULL,
-  `codPostal` varchar(8) NOT NULL,
-  `localidade` varchar(30) NOT NULL,
-  `email` varchar(30) DEFAULT NULL,
+DROP TABLE IF EXISTS `tbl_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_user` (
+  `idUser` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `street` varchar(50) NOT NULL,
+  `zipcode` varchar(8) NOT NULL,
+  `city` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL,
   `nif` varchar(9) NOT NULL,
-  `contacto` varchar(9) NOT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `contact` varchar(9) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `token` varchar(255) DEFAULT NULL,
-  `isActive` tinyint(1) DEFAULT NULL,
-  `role` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+  `isActive` tinyint(1) NOT NULL DEFAULT '0',
+  `role` int(11) NOT NULL DEFAULT '4',
+  PRIMARY KEY (`idUser`),
+  UNIQUE KEY `numUtilizador` (`idUser`),
+  UNIQUE KEY `nif` (`nif`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Extraindo dados da tabela `tbl_utilizadores`
+-- Dumping data for table `tbl_user`
 --
 
-INSERT INTO `tbl_utilizadores` (`numUtilizador`, `nome`, `morada`, `codPostal`, `localidade`, `email`, `nif`, `contacto`, `username`, `password`, `token`, `isActive`, `role`) VALUES
-(1, 'Rui Barcelos', 'Rua João Maria da Costa n9B', '2090-093', 'Alpiarça', 'aluno18834@ipt.pt', '241804744', '911909758', 'rbarcelos', '46f94c8de14fb36680850768ff1b7f2a', NULL, 1, 1),
-(2, 'Miguel Silva', 'Vale de Santarém', '2005-712', 'Vale de Santarém', 'miguelflsilva1995@gmail.com', '123123122', '919191991', 'migsilva', '46f94c8de14fb36680850768ff1b7f2a', NULL, 1, 2),
-(3, 'João Bandarra', 'Agrantes', '2022-024', 'Amrantes', 'a@f.pt', '223123121', '987487987', 'bandarra', '46f94c8de14fb36680850768ff1b7f2a', NULL, 1, 3),
-(4, 'Pedro Vicente Nunes', 'Matas', '2025-022', 'Santarém', 'b@a.pt', '123212323', '912911911', 'pnunes', '46f94c8de14fb36680850768ff1b7f2a', NULL, 1, 4),
-(5, 'João Bandarra', 'Agrantes', '2022-021', 'Amrantes', 'a@f.pt', '123123121', '987487987', 'jbandarra', '46f94c8de14fb36680850768ff1b7f2a', NULL, 1, 4),
-(6, 'Oscar Taquara Cardozo', 'Rua x', '2090-099', 'Alpiarça', 'cardozo@ipt.pt', '414999444', '911922923', 'cardozo', '46f94c8de14fb36680850768ff1b7f2a', NULL, 1, 4),
-(7, 'João Canoso', 'Alpiarça', '2090-022', 'Alpiarça', 'aluno18839@ipt.pt', '233244255', '911911991', 'jcanoso', '46f94c8de14fb36680850768ff1b7f2a', NULL, 1, 4),
-(8, 'Jonas Pistolas', 'Caixa Futebol Campus', '9999-000', 'Seixal', 'jonas@slbenfica.pt', '881132222', '991122991', 'jonas', '46f94c8de14fb36680850768ff1b7f2a', NULL, 0, 4);
-
--- --------------------------------------------------------
+LOCK TABLES `tbl_user` WRITE;
+/*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
+INSERT INTO `tbl_user` VALUES (1,'Rui Barcelos','Rua João Maria da Costa n9B','2090-093','Alpiarça','aluno18834@ipt.pt','241804744','911909758','rbarcelos','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(2,'Miguel Silva','Vale de Santarém','2005-712','Vale de Santarém','miguelflsilva1995@gmail.com','123123122','919191991','migsilva','46f94c8de14fb36680850768ff1b7f2a',NULL,1,2),(3,'João Bandarra','Agrantes','2022-024','Amrantes','a@f.pt','223123121','987487987','bandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,3),(4,'Pedro Vicente Nunes','Matas','2025-022','Santarém','b@a.pt','123212323','912911911','pnunes','46f94c8de14fb36680850768ff1b7f2a',NULL,1,4),(5,'João Bandarra','Agrantes','2022-021','Amrantes','a@f.pt','123123121','987487987','jbandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,4),(6,'Oscar Taquara Cardozo','Rua x','2090-099','Alpiarça','cardozo@ipt.pt','414999444','911922923','cardozo','46f94c8de14fb36680850768ff1b7f2a',NULL,1,4),(7,'João Canoso','Alpiarça','2090-022','Alpiarça','aluno18839@ipt.pt','233244255','911911991','jcanoso','46f94c8de14fb36680850768ff1b7f2a',NULL,1,4),(8,'Jonas Pistolas','Caixa Futebol Campus','9999-000','Seixal','jonas@slbenfica.pt','881132222','991122991','jonas','46f94c8de14fb36680850768ff1b7f2a',NULL,0,4);
+/*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estrutura da tabela `tbl_utilizadores_veiculos`
+-- Table structure for table `tbl_utilizadores_veiculos`
 --
 
+DROP TABLE IF EXISTS `tbl_utilizadores_veiculos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_utilizadores_veiculos` (
   `numUser` int(11) NOT NULL,
   `numVei` int(11) NOT NULL,
-  `active` tinyint(1) NOT NULL
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`numUser`,`numVei`),
+  KEY `veifk` (`numVei`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Extraindo dados da tabela `tbl_utilizadores_veiculos`
+-- Dumping data for table `tbl_utilizadores_veiculos`
 --
 
-INSERT INTO `tbl_utilizadores_veiculos` (`numUser`, `numVei`, `active`) VALUES
-(1, 1, 1),
-(1, 2, 1),
-(2, 3, 1);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tbl_veiculo`
---
-
-CREATE TABLE `tbl_veiculo` (
-  `idVeiculo` int(11) NOT NULL,
-  `matricula` varchar(255) DEFAULT NULL,
-  `modelo` int(11) DEFAULT NULL,
-  `potencia` int(11) DEFAULT NULL,
-  `cilindrada` int(11) DEFAULT NULL,
-  `quilometros` int(11) DEFAULT NULL,
-  `combustivel` int(11) DEFAULT NULL,
-  `medpneusfrente` varchar(15) DEFAULT NULL,
-  `medidaspneusatras` varchar(15) DEFAULT NULL,
-  `ano` year(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+LOCK TABLES `tbl_utilizadores_veiculos` WRITE;
+/*!40000 ALTER TABLE `tbl_utilizadores_veiculos` DISABLE KEYS */;
+INSERT INTO `tbl_utilizadores_veiculos` VALUES (1,1,1),(1,2,1),(2,3,1);
+/*!40000 ALTER TABLE `tbl_utilizadores_veiculos` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Extraindo dados da tabela `tbl_veiculo`
+-- Table structure for table `tbl_vehicle`
 --
 
-INSERT INTO `tbl_veiculo` (`idVeiculo`, `matricula`, `modelo`, `potencia`, `cilindrada`, `quilometros`, `combustivel`, `medpneusfrente`, `medidaspneusatras`, `ano`) VALUES
-(1, '99-33-HH', 1, 22, 33, 1991999, 1, '99', '99', 1997),
-(2, '88-00-XX', 2, 3, 43, 222333, 2, '33', '33', 2004),
-(3, '88-22-ZZ', 3, 22, 34, 133223, 1, '33', '22', 2005);
+DROP TABLE IF EXISTS `tbl_vehicle`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_vehicle` (
+  `idVehicle` int(11) NOT NULL AUTO_INCREMENT,
+  `registration` varchar(255) DEFAULT NULL,
+  `model` int(11) DEFAULT NULL,
+  `horsepower` int(11) DEFAULT NULL,
+  `displacement` int(11) DEFAULT NULL,
+  `kilometers` int(11) DEFAULT NULL,
+  `fuel` int(11) DEFAULT NULL,
+  `reartiresize` varchar(15) DEFAULT NULL,
+  `fronttiresize` varchar(15) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  PRIMARY KEY (`idVehicle`),
+  KEY `modeloveiculofk` (`model`),
+  KEY `combustivel` (`fuel`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Indexes for dumped tables
+-- Dumping data for table `tbl_vehicle`
 --
 
---
--- Indexes for table `tbl_combustivel`
---
-ALTER TABLE `tbl_combustivel`
-  ADD PRIMARY KEY (`idCombustivel`);
+LOCK TABLES `tbl_vehicle` WRITE;
+/*!40000 ALTER TABLE `tbl_vehicle` DISABLE KEYS */;
+INSERT INTO `tbl_vehicle` VALUES (1,'99-33-HH',1,22,33,1991999,1,'99','99',NULL),(2,'88-00-XX',2,3,43,222333,2,'33','33',NULL),(3,'88-22-ZZ',3,22,34,133223,1,'33','22',NULL);
+/*!40000 ALTER TABLE `tbl_vehicle` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Indexes for table `tbl_encomenda`
---
-ALTER TABLE `tbl_encomenda`
-  ADD PRIMARY KEY (`id_encomenda`),
-  ADD KEY `fornecedorfk` (`fornecedor`),
-  ADD KEY `pecaencomendafk` (`peca`);
-
---
--- Indexes for table `tbl_estado_orcamento`
---
-ALTER TABLE `tbl_estado_orcamento`
-  ADD PRIMARY KEY (`id_estadoOrc`);
-
---
--- Indexes for table `tbl_estado_reparacao`
---
-ALTER TABLE `tbl_estado_reparacao`
-  ADD PRIMARY KEY (`idEstado`);
-
---
--- Indexes for table `tbl_fornecedor`
---
-ALTER TABLE `tbl_fornecedor`
-  ADD PRIMARY KEY (`id_fornecedor`);
-
---
--- Indexes for table `tbl_funcionario`
---
-ALTER TABLE `tbl_funcionario`
-  ADD PRIMARY KEY (`numUser`,`idFunc`),
-  ADD KEY `funcfw` (`idFunc`);
-
---
--- Indexes for table `tbl_marcaveiculo`
---
-ALTER TABLE `tbl_marcaveiculo`
-  ADD PRIMARY KEY (`idMarca`),
-  ADD UNIQUE KEY `marca` (`marca`);
-
---
--- Indexes for table `tbl_modeloveiculo`
---
-ALTER TABLE `tbl_modeloveiculo`
-  ADD PRIMARY KEY (`idModelo`),
-  ADD KEY `marcafk` (`marca`);
-
---
--- Indexes for table `tbl_orcamentos`
---
-ALTER TABLE `tbl_orcamentos`
-  ADD PRIMARY KEY (`id_orcamento`),
-  ADD KEY `veic_fk` (`veiculo`);
-
---
--- Indexes for table `tbl_peca`
---
-ALTER TABLE `tbl_peca`
-  ADD PRIMARY KEY (`idpeca`);
-
---
--- Indexes for table `tbl_pecafornecedor`
---
-ALTER TABLE `tbl_pecafornecedor`
-  ADD PRIMARY KEY (`idpeca`,`idfornecedor`);
-
---
--- Indexes for table `tbl_pecafornecida`
---
-ALTER TABLE `tbl_pecafornecida`
-  ADD PRIMARY KEY (`idpecafornecida`),
-  ADD KEY `pecafornecidafornecedorFK` (`fornecedor`);
-
---
--- Indexes for table `tbl_peca_reparacao`
---
-ALTER TABLE `tbl_peca_reparacao`
-  ADD PRIMARY KEY (`idreparacao`,`idpeca`),
-  ADD KEY `pecafk` (`idpeca`);
-
---
--- Indexes for table `tbl_reparacao`
---
-ALTER TABLE `tbl_reparacao`
-  ADD PRIMARY KEY (`idReparacao`),
-  ADD KEY `veiculoFK` (`veiculo`),
-  ADD KEY `estadoFK` (`estadoReparacao`);
-
---
--- Indexes for table `tbl_reparacao_funcionario`
---
-ALTER TABLE `tbl_reparacao_funcionario`
-  ADD PRIMARY KEY (`funcionario`,`reparacao`),
-  ADD KEY `repFK` (`reparacao`);
-
---
--- Indexes for table `tbl_role`
---
-ALTER TABLE `tbl_role`
-  ADD PRIMARY KEY (`idRole`);
-
---
--- Indexes for table `tbl_roles_utilizador`
---
-ALTER TABLE `tbl_roles_utilizador`
-  ADD PRIMARY KEY (`idRole`);
-
---
--- Indexes for table `tbl_schedule`
---
-ALTER TABLE `tbl_schedule`
-  ADD PRIMARY KEY (`idSchedule`);
-
---
--- Indexes for table `tbl_service`
---
-ALTER TABLE `tbl_service`
-  ADD PRIMARY KEY (`idService`);
-
---
--- Indexes for table `tbl_utilizadores`
---
-ALTER TABLE `tbl_utilizadores`
-  ADD PRIMARY KEY (`numUtilizador`),
-  ADD UNIQUE KEY `numUtilizador` (`numUtilizador`),
-  ADD UNIQUE KEY `nif` (`nif`);
-
---
--- Indexes for table `tbl_utilizadores_veiculos`
---
-ALTER TABLE `tbl_utilizadores_veiculos`
-  ADD PRIMARY KEY (`numUser`,`numVei`),
-  ADD KEY `veifk` (`numVei`);
-
---
--- Indexes for table `tbl_veiculo`
---
-ALTER TABLE `tbl_veiculo`
-  ADD PRIMARY KEY (`idVeiculo`),
-  ADD UNIQUE KEY `matrícula` (`matricula`),
-  ADD KEY `modeloveiculofk` (`modelo`),
-  ADD KEY `combustivel` (`combustivel`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `tbl_combustivel`
---
-ALTER TABLE `tbl_combustivel`
-  MODIFY `idCombustivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `tbl_encomenda`
---
-ALTER TABLE `tbl_encomenda`
-  MODIFY `id_encomenda` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_estado_orcamento`
---
-ALTER TABLE `tbl_estado_orcamento`
-  MODIFY `id_estadoOrc` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_estado_reparacao`
---
-ALTER TABLE `tbl_estado_reparacao`
-  MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_fornecedor`
---
-ALTER TABLE `tbl_fornecedor`
-  MODIFY `id_fornecedor` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_funcionario`
---
-ALTER TABLE `tbl_funcionario`
-  MODIFY `idFunc` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_marcaveiculo`
---
-ALTER TABLE `tbl_marcaveiculo`
-  MODIFY `idMarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `tbl_modeloveiculo`
---
-ALTER TABLE `tbl_modeloveiculo`
-  MODIFY `idModelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `tbl_orcamentos`
---
-ALTER TABLE `tbl_orcamentos`
-  MODIFY `id_orcamento` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_peca`
---
-ALTER TABLE `tbl_peca`
-  MODIFY `idpeca` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_pecafornecedor`
---
-ALTER TABLE `tbl_pecafornecedor`
-  MODIFY `idpeca` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_pecafornecida`
---
-ALTER TABLE `tbl_pecafornecida`
-  MODIFY `idpecafornecida` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_peca_reparacao`
---
-ALTER TABLE `tbl_peca_reparacao`
-  MODIFY `idreparacao` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_reparacao`
---
-ALTER TABLE `tbl_reparacao`
-  MODIFY `idReparacao` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_role`
---
-ALTER TABLE `tbl_role`
-  MODIFY `idRole` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `tbl_roles_utilizador`
---
-ALTER TABLE `tbl_roles_utilizador`
-  MODIFY `idRole` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `tbl_schedule`
---
-ALTER TABLE `tbl_schedule`
-  MODIFY `idSchedule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT for table `tbl_service`
---
-ALTER TABLE `tbl_service`
-  MODIFY `idService` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `tbl_utilizadores`
---
-ALTER TABLE `tbl_utilizadores`
-  MODIFY `numUtilizador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT for table `tbl_veiculo`
---
-ALTER TABLE `tbl_veiculo`
-  MODIFY `idVeiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2017-07-18 15:48:01
