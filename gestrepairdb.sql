@@ -513,29 +513,29 @@ INSERT INTO `tbl_user` VALUES (1,'Rui Barcelos','Rua João Maria da Costa n9B','
 UNLOCK TABLES;
 
 --
--- Table structure for table `tbl_utilizadores_veiculos`
+-- Table structure for table `tbl_user_vehicle`
 --
 
-DROP TABLE IF EXISTS `tbl_utilizadores_veiculos`;
+DROP TABLE IF EXISTS `tbl_user_vehicle`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_utilizadores_veiculos` (
-  `numUser` int(11) NOT NULL,
-  `numVei` int(11) NOT NULL,
-  `active` tinyint(1) NOT NULL,
-  PRIMARY KEY (`numUser`,`numVei`),
-  KEY `veifk` (`numVei`)
+CREATE TABLE `tbl_user_vehicle` (
+  `user` int(11) NOT NULL,
+  `vehicle` int(11) NOT NULL,
+  `isActive` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`user`,`vehicle`),
+  KEY `veifk` (`vehicle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tbl_utilizadores_veiculos`
+-- Dumping data for table `tbl_user_vehicle`
 --
 
-LOCK TABLES `tbl_utilizadores_veiculos` WRITE;
-/*!40000 ALTER TABLE `tbl_utilizadores_veiculos` DISABLE KEYS */;
-INSERT INTO `tbl_utilizadores_veiculos` VALUES (1,1,1),(1,2,1),(2,3,1);
-/*!40000 ALTER TABLE `tbl_utilizadores_veiculos` ENABLE KEYS */;
+LOCK TABLES `tbl_user_vehicle` WRITE;
+/*!40000 ALTER TABLE `tbl_user_vehicle` DISABLE KEYS */;
+INSERT INTO `tbl_user_vehicle` VALUES (1,1,1),(1,2,1),(2,3,1);
+/*!40000 ALTER TABLE `tbl_user_vehicle` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -581,4 +581,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-18 15:48:01
+-- Dump completed on 2017-07-18 15:59:52
