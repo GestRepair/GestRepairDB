@@ -43,6 +43,39 @@ INSERT INTO `tbl_brand` VALUES (4,'Ford'),(1,'Hyundai'),(3,'Mercedes Benz'),(2,'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tbl_budget`
+--
+
+DROP TABLE IF EXISTS `tbl_budget`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_budget` (
+  `idBudget` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle` int(11) NOT NULL,
+  `service` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `price` float DEFAULT NULL,
+  `processOpen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `repairTime` int(11) DEFAULT NULL,
+  `state` int(11) NOT NULL,
+  `processClose` date DEFAULT NULL,
+  `resolution` text,
+  PRIMARY KEY (`idBudget`),
+  KEY `veic_fk` (`vehicle`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_budget`
+--
+
+LOCK TABLES `tbl_budget` WRITE;
+/*!40000 ALTER TABLE `tbl_budget` DISABLE KEYS */;
+INSERT INTO `tbl_budget` VALUES (1,1,8,'O carro Não pisca do lado direito, na parte frontal e já houve troca de lampadas',NULL,'2017-07-19 10:04:45',NULL,1,NULL,NULL),(2,1,9,'O carro Necessita de uma pintura',NULL,'2017-07-19 10:04:45',NULL,2,NULL,'Tinta');
+/*!40000 ALTER TABLE `tbl_budget` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbl_employer`
 --
 
@@ -121,29 +154,6 @@ LOCK TABLES `tbl_encomenda` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `tbl_estado_orcamento`
---
-
-DROP TABLE IF EXISTS `tbl_estado_orcamento`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_estado_orcamento` (
-  `id_estadoOrc` int(11) NOT NULL AUTO_INCREMENT,
-  `estadoOrcamento` varchar(30) NOT NULL,
-  PRIMARY KEY (`id_estadoOrc`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbl_estado_orcamento`
---
-
-LOCK TABLES `tbl_estado_orcamento` WRITE;
-/*!40000 ALTER TABLE `tbl_estado_orcamento` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_estado_orcamento` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tbl_fornecedor`
 --
 
@@ -214,37 +224,6 @@ LOCK TABLES `tbl_model` WRITE;
 /*!40000 ALTER TABLE `tbl_model` DISABLE KEYS */;
 INSERT INTO `tbl_model` VALUES (1,'H1',1),(2,'S80',2),(3,'B180',3),(4,'Fiesta',4);
 /*!40000 ALTER TABLE `tbl_model` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tbl_orcamentos`
---
-
-DROP TABLE IF EXISTS `tbl_orcamentos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_orcamentos` (
-  `id_orcamento` int(11) NOT NULL AUTO_INCREMENT,
-  `veiculo` int(11) NOT NULL,
-  `descricao` text NOT NULL,
-  `preco` float NOT NULL,
-  `aberturaProcesso` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `TempoReparacao` int(11) NOT NULL,
-  `estadoorcamento` int(11) NOT NULL,
-  `DataFimOrcamento` date NOT NULL,
-  `resolucao` text NOT NULL,
-  PRIMARY KEY (`id_orcamento`),
-  KEY `veic_fk` (`veiculo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbl_orcamentos`
---
-
-LOCK TABLES `tbl_orcamentos` WRITE;
-/*!40000 ALTER TABLE `tbl_orcamentos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_orcamentos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -359,6 +338,7 @@ CREATE TABLE `tbl_repair` (
   `vehicle` int(11) NOT NULL,
   `description` text NOT NULL,
   `price` float DEFAULT NULL,
+  `service` int(11) NOT NULL,
   `state` int(11) NOT NULL,
   `startDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `finishDate` datetime DEFAULT NULL,
@@ -375,7 +355,7 @@ CREATE TABLE `tbl_repair` (
 
 LOCK TABLES `tbl_repair` WRITE;
 /*!40000 ALTER TABLE `tbl_repair` DISABLE KEYS */;
-INSERT INTO `tbl_repair` VALUES (1,1,'Batido no Espelho Lado Esquerdo',NULL,2,'2017-07-17 23:00:00',NULL,'Substituição do Espelho'),(2,2,'Capo Amolgado',NULL,2,'2017-07-18 21:26:13',NULL,NULL);
+INSERT INTO `tbl_repair` VALUES (1,1,'Batido no Espelho Lado Esquerdo',NULL,3,2,'2017-07-18 23:08:21',NULL,'Substituição do Espelho'),(2,2,'Capo Amolgado',NULL,3,2,'2017-07-18 23:08:21',NULL,NULL);
 /*!40000 ALTER TABLE `tbl_repair` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -417,7 +397,7 @@ CREATE TABLE `tbl_schedule` (
   `date` datetime NOT NULL,
   `isActive` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idSchedule`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -426,7 +406,7 @@ CREATE TABLE `tbl_schedule` (
 
 LOCK TABLES `tbl_schedule` WRITE;
 /*!40000 ALTER TABLE `tbl_schedule` DISABLE KEYS */;
-INSERT INTO `tbl_schedule` VALUES (4,3,2,'2017-09-21 00:00:00',1),(5,3,2,'2018-02-01 00:00:00',1),(6,3,2,'2017-07-26 09:49:00',1),(7,8,1,'2017-07-19 09:51:00',0),(8,9,1,'2019-01-01 10:00:00',1),(9,8,1,'2017-08-01 15:21:00',1);
+INSERT INTO `tbl_schedule` VALUES (4,3,2,'2017-09-21 00:00:00',0),(5,3,2,'2018-02-01 00:00:00',0),(6,3,2,'2017-07-26 09:49:00',1),(7,8,1,'2017-07-19 09:51:00',0),(8,9,1,'2019-01-01 10:00:00',1),(9,8,1,'2017-08-01 15:21:00',1),(10,8,1,'2017-07-19 14:00:00',1),(11,9,1,'2017-07-19 14:55:00',1),(12,8,1,'2019-03-05 14:00:00',1),(13,3,2,'2021-07-11 16:00:00',1),(14,9,1,'2021-12-30 15:00:00',1),(15,9,2,'2021-12-31 18:00:00',1);
 /*!40000 ALTER TABLE `tbl_schedule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -455,6 +435,30 @@ LOCK TABLES `tbl_service` WRITE;
 /*!40000 ALTER TABLE `tbl_service` DISABLE KEYS */;
 INSERT INTO `tbl_service` VALUES (1,'Administrador',0,' ','serviceDefphoto.jpeg'),(2,'Gestor',0,' ','serviceDefphoto.jpeg'),(3,'Bate-Chapas',20,'Reparação ou Substituição de Chapas','serviceDefphoto.jpeg'),(8,'Pintura',25,'Pintura de Automóveis','serviceDefphoto.jpeg'),(9,'Revisão',20,'Mudança do Oleo','serviceDefphoto.jpeg');
 /*!40000 ALTER TABLE `tbl_service` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_state_budget`
+--
+
+DROP TABLE IF EXISTS `tbl_state_budget`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_state_budget` (
+  `idState` int(11) NOT NULL AUTO_INCREMENT,
+  `nameState` varchar(30) NOT NULL,
+  PRIMARY KEY (`idState`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_state_budget`
+--
+
+LOCK TABLES `tbl_state_budget` WRITE;
+/*!40000 ALTER TABLE `tbl_state_budget` DISABLE KEYS */;
+INSERT INTO `tbl_state_budget` VALUES (1,'Avaliação'),(2,'Em Aprovação'),(3,'Aprovado'),(4,'Não Aprovado');
+/*!40000 ALTER TABLE `tbl_state_budget` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -505,7 +509,7 @@ CREATE TABLE `tbl_user` (
   PRIMARY KEY (`idUser`),
   UNIQUE KEY `numUtilizador` (`idUser`),
   UNIQUE KEY `nif` (`nif`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -514,7 +518,7 @@ CREATE TABLE `tbl_user` (
 
 LOCK TABLES `tbl_user` WRITE;
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
-INSERT INTO `tbl_user` VALUES (1,'Rui Barcelos','Rua João Maria da Costa n9B','2090-093','Alpiarça','aluno18834@ipt.pt','241804744','911909758','rbarcelos','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(2,'Miguel Silva','Vale de Santarém','2005-712','Vale de Santarém','miguelflsilva1995@gmail.com','123123122','919191991','migsilva','46f94c8de14fb36680850768ff1b7f2a',NULL,1,2),(3,'João Bandarra','Agrantes','2022-024','Amrantes','a@f.pt','223123121','987487987','bandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,3),(4,'Pedro Vicente Nunes','Matas','2025-022','Santarém','b@a.pt','123212323','912911911','pnunes','46f94c8de14fb36680850768ff1b7f2a',NULL,1,4),(5,'João Bandarra','Agrantes','2022-021','Amrantes','a@f.pt','123123121','987487987','jbandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,4),(6,'Oscar Taquara Cardozo','Rua x','2090-099','Alpiarça','cardozo@ipt.pt','414999444','911922923','cardozo','46f94c8de14fb36680850768ff1b7f2a',NULL,1,4),(7,'João Canoso','Alpiarça','2090-022','Alpiarça','aluno18839@ipt.pt','233244255','911911991','jcanoso','46f94c8de14fb36680850768ff1b7f2a',NULL,1,4),(8,'Jonas Pistolas','Caixa Futebol Campus','9999-000','Seixal','jonas@slbenfica.pt','881132222','991122991','jonas','46f94c8de14fb36680850768ff1b7f2a',NULL,0,4);
+INSERT INTO `tbl_user` VALUES (1,'Rui Barcelos','Rua João Maria da Costa n9B','2090-093','Alpiarça','aluno18834@ipt.pt','241804744','911909758','rbarcelos','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(2,'Miguel Silva','Vale de Santarém','2005-712','Vale de Santarém','miguelflsilva1995@gmail.com','123123122','919191991','migsilva','46f94c8de14fb36680850768ff1b7f2a',NULL,1,2),(3,'João Bandarra','Agrantes','2022-024','Amrantes','a@f.pt','223123121','987487987','bandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,3),(4,'Pedro Vicente Nunes','Matas','2025-022','Santarém','b@a.pt','123212323','912911911','pnunes','46f94c8de14fb36680850768ff1b7f2a',NULL,1,4),(5,'João Bandarra','Agrantes','2022-021','Amrantes','a@f.pt','123123121','987487987','jbandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,4),(6,'Oscar Taquara Cardozo','Rua x','2090-099','Alpiarça','cardozo@ipt.pt','414999444','911922923','cardozo','46f94c8de14fb36680850768ff1b7f2a',NULL,1,4),(7,'João Canoso','Alpiarça','2090-022','Alpiarça','aluno18839@ipt.pt','233244255','911911991','jcanoso','46f94c8de14fb36680850768ff1b7f2a',NULL,1,4),(8,'Jonas Pistolas','Caixa Futebol Campus','9999-000','Seixal','jonas@slbenfica.pt','881132222','991122991','jonas','46f94c8de14fb36680850768ff1b7f2a',NULL,0,4),(9,'Rui Vitória','Seixal','2090-000','Seixal','vitoria@slbenfica.pt','222000111','915462000','vitoria','46f94c8de14fb36680850768ff1b7f2a',NULL,0,4);
 /*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -587,4 +591,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-18 22:40:04
+-- Dump completed on 2017-07-19 20:27:58
