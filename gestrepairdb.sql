@@ -493,7 +493,7 @@ CREATE TABLE `tbl_user` (
 
 LOCK TABLES `tbl_user` WRITE;
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
-INSERT INTO `tbl_user` VALUES (1,'Rui Barcelos','Rua João Maria da Costa nº 9-B','2090-093','Alpiarça','barcelos.rui@gmail.com','241804744','911909758','rbarcelos','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(2,'Miguel Silva','Vale de Santarém','2005-712','Vale de Santarém','miguelflsilva1995@gmail.com','123123122','919191991','migsilva','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(3,'João Bandarra','Agrantes','2022-024','Amrantes','a@f.pt','223123121','987487987','bandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(4,'Pedro Vicente Nunes','Matas','2025-022','Santarém','b@a.pt','123212323','912911911','pnunes','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(5,'João Bandarra','Agrantes','2022-021','Amrantes','a@f.pt','123123121','987487987','jbandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(6,'Oscar Taquara Cardozo','Rua x','2090-099','Alpiarça','cardozo@ipt.pt','414999444','911922923','cardozo','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(7,'João Canoso','Alpiarça','2090-022','Alpiarça','aluno18839@ipt.pt','233244255','911911991','jcanoso','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(8,'Jonas Pistolas','Caixa Futebol Campus','9999-000','Seixal','jonas@slbenfica.pt','881132222','991122991','jonas','46f94c8de14fb36680850768ff1b7f2a',NULL,0,0),(9,'Rui Vitória','Seixal','2090-093','Seixal','vitoria@slbenfica.pt','222000111','915462000','vitoria','46f94c8de14fb36680850768ff1b7f2a',NULL,0,0),(13,'Aluno Rui Barcelos','Alpiarça','2090-093','Alpiarça','a@a.pt','234992119','911991199','aluno18834','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(14,'Aluno Rui','asas','1231-233','asdasd','a2@1.ss','191292999','999222999','arui','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(15,'Helder Postiga','Alcochete','2999-999','Alcochete','aluno18899@ipt.pt','999922212','912112112','postiga88','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0);
+INSERT INTO `tbl_user` VALUES (1,'Rui Barcelos','Rua João Maria da Costa nº 9-B','2090-093','Alpiarça','barcelos.rui@gmail.com','241804744','911909758','rbarcelos','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(2,'Miguel Silva','Vale de Santarém','2005-712','Vale de Santarém','miguelflsilva1995@gmail.com','123123122','919191991','migsilva','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(3,'João Bandarra','Agrantes','2022-024','Amrantes','a@f.pt','223123121','987487987','bandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(4,'Pedro Vicente Nunes','Matas','2025-022','Santarém','b@a.pt','123212323','912911911','pnunes','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(5,'João Bandarra','Agrantes','2022-021','Amrantes','a@f.pt','123123121','987487987','jbandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(6,'Oscar Taquara Cardozo','Rua x','2090-099','Alpiarça','cardozo@ipt.pt','414999444','911922923','cardozo','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(7,'João Canoso','Alpiarça','2090-022','Alpiarça','aluno18839@ipt.pt','233244255','911911991','jcanoso','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(8,'Jonas Pistolas','Caixa Futebol Campus','9999-000','Seixal','jonas@slbenfica.pt','881132222','991122991','jonas','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(9,'Rui Vitória','Seixal','2090-093','Seixal','vitoria@slbenfica.pt','222000111','915462000','vitoria','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(13,'Aluno Rui Barcelos','Alpiarça','2090-093','Alpiarça','a@a.pt','234992119','911991199','aluno18834','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(14,'Aluno Rui','asas','1231-233','asdasd','a2@1.ss','191292999','999222999','arui','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(15,'Helder Postiga','Alcochete','2009-333','Alcochete','aluno18899@ipt.pt','999922212','912112112','postiga88','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0);
 /*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -519,7 +519,7 @@ CREATE TABLE `tbl_user_vehicle` (
 
 LOCK TABLES `tbl_user_vehicle` WRITE;
 /*!40000 ALTER TABLE `tbl_user_vehicle` DISABLE KEYS */;
-INSERT INTO `tbl_user_vehicle` VALUES (1,1,1),(2,3,1),(3,2,1);
+INSERT INTO `tbl_user_vehicle` VALUES (1,1,1),(2,3,1),(3,2,1),(7,4,1),(9,5,1),(9,6,1),(15,7,1);
 /*!40000 ALTER TABLE `tbl_user_vehicle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -544,7 +544,7 @@ CREATE TABLE `tbl_vehicle` (
   PRIMARY KEY (`idVehicle`),
   KEY `modeloveiculofk` (`model`),
   KEY `combustivel` (`fuel`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -553,7 +553,7 @@ CREATE TABLE `tbl_vehicle` (
 
 LOCK TABLES `tbl_vehicle` WRITE;
 /*!40000 ALTER TABLE `tbl_vehicle` DISABLE KEYS */;
-INSERT INTO `tbl_vehicle` VALUES (1,'99-33-HH',1,50,1800,199922,1,'195/65R15 91T','195/65R15 91T','1997-03-01'),(2,'99-HH-76',7,90,2000,199922,2,'195/65R15 91T','195/65R15 91T','2009-01-23'),(3,'33-63-TD',88,60,2500,400399,4,'195/65R15 91T','195/65R15 91T','2002-01-13');
+INSERT INTO `tbl_vehicle` VALUES (1,'99-33-HH',1,50,1800,199922,1,'195/65R15 91T','195/65R15 91T','1997-03-01'),(2,'99-HH-76',7,90,2000,199922,2,'195/65R15 91T','195/65R15 91T','2009-01-23'),(3,'33-63-TD',88,60,2500,400399,4,'195/65R15 91T','195/65R15 91T','2002-01-13'),(4,'55-DD-23',19,75,1800,555333,2,'195/65R15 91T','195/65R15 91T','2005-02-12'),(5,'99-RV-18',33,200,2333,34442,2,'195/65R15 91T','195/65R15 91T','2016-02-12'),(6,'44-QS-99',1328,30000,2000,32354,1,'fgaertge','afsdgerfg','2015-12-03'),(7,'88-33-BD',244,50,1100,423543,1,'35rertga','35rertga','1993-01-23');
 /*!40000 ALTER TABLE `tbl_vehicle` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -566,4 +566,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-31 14:53:02
+-- Dump completed on 2017-07-31 23:34:48
