@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `gestrepair` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `gestrepair`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: gestrepair
@@ -88,7 +86,7 @@ CREATE TABLE `tbl_employer` (
   `service` int(11) NOT NULL,
   `isActive` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idEmployer`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +95,7 @@ CREATE TABLE `tbl_employer` (
 
 LOCK TABLES `tbl_employer` WRITE;
 /*!40000 ALTER TABLE `tbl_employer` DISABLE KEYS */;
-INSERT INTO `tbl_employer` VALUES (1,1,1,1),(2,2,2,1),(3,3,3,1),(7,6,8,1),(8,6,8,1),(9,4,9,1);
+INSERT INTO `tbl_employer` VALUES (1,1,1,1),(2,2,2,1),(3,3,3,1),(4,6,8,1),(5,4,9,1);
 /*!40000 ALTER TABLE `tbl_employer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -382,7 +380,7 @@ CREATE TABLE `tbl_schedule` (
 
 LOCK TABLES `tbl_schedule` WRITE;
 /*!40000 ALTER TABLE `tbl_schedule` DISABLE KEYS */;
-INSERT INTO `tbl_schedule` VALUES (4,3,2,'2017-09-21 00:00:00',0),(5,3,2,'2018-02-01 00:00:00',0),(6,3,2,'2017-07-26 09:49:00',1),(7,8,1,'2017-07-19 09:51:00',0),(8,9,1,'2019-01-01 10:00:00',1),(9,8,1,'2017-08-01 15:21:00',1),(10,8,1,'2017-07-19 14:00:00',1),(11,9,1,'2017-07-19 14:55:00',1),(12,8,1,'2019-03-05 14:00:00',1),(13,3,2,'2021-07-11 16:00:00',1),(14,9,1,'2021-12-30 15:00:00',1),(15,9,2,'2021-12-31 18:00:00',1);
+INSERT INTO `tbl_schedule` VALUES (4,3,2,'2017-09-21 00:00:00',0),(5,3,2,'2018-02-01 00:00:00',0),(6,3,2,'2017-07-26 09:49:00',1),(7,8,1,'2017-07-19 09:51:00',0),(8,9,1,'2019-01-01 10:00:00',1),(9,8,3,'2017-08-01 15:21:00',1),(10,8,1,'2017-07-19 14:00:00',1),(11,9,3,'2017-07-19 14:55:00',1),(12,8,1,'2019-03-05 14:00:00',1),(13,3,2,'2021-07-11 16:00:00',1),(14,9,3,'2021-12-30 15:00:00',1),(15,9,2,'2021-12-31 18:00:00',1);
 /*!40000 ALTER TABLE `tbl_schedule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -395,7 +393,7 @@ DROP TABLE IF EXISTS `tbl_service`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_service` (
   `idService` int(11) NOT NULL AUTO_INCREMENT,
-  `nameService` varchar(15) DEFAULT NULL,
+  `nameService` varchar(255) DEFAULT NULL,
   `priceService` float DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `photo` varchar(255) DEFAULT 'serviceDefphoto.jpeg',
@@ -409,7 +407,7 @@ CREATE TABLE `tbl_service` (
 
 LOCK TABLES `tbl_service` WRITE;
 /*!40000 ALTER TABLE `tbl_service` DISABLE KEYS */;
-INSERT INTO `tbl_service` VALUES (1,'Administrador',0,' ','serviceDefphoto.jpeg'),(2,'Gestor',0,' ','serviceDefphoto.jpeg'),(3,'Bate-Chapas',20,'Reparação ou Substituição de Chapas','serviceDefphoto.jpeg'),(8,'Pintura',25,'Pintura de Automóveis','serviceDefphoto.jpeg'),(9,'Revisão',20,'Mudança do Oleo','serviceDefphoto.jpeg');
+INSERT INTO `tbl_service` VALUES (1,'Gestor',0,' ','serviceDefphoto.jpeg'),(2,'Estafeta',0,' ','serviceDefphoto.jpeg'),(3,'Bate-Chapas',20,'Reparação ou Substituição de Chapas','serviceDefphoto.jpeg'),(4,'Inspeção Automóvel',35,'Levamos o seu Veículo à inspeção','serviceDefphoto.jpeg'),(5,'Diagonóstico',5,'Diagonosticamos os problemas do seu veículo','serviceDefphoto.jpeg'),(6,'Alinhamento da Direção',40,'Alinhamos a direção do seu Automóvel','serviceDefphoto.jpeg'),(7,'Suspensão',30,'Tratamos a Suspenção do Seu automóvel','serviceDefphoto.jpeg'),(8,'Pintura',25,'Pintura de Automóveis','serviceDefphoto.jpeg'),(9,'Revisão',20,'Mudança do Oleo','serviceDefphoto.jpeg');
 /*!40000 ALTER TABLE `tbl_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -493,7 +491,7 @@ CREATE TABLE `tbl_user` (
 
 LOCK TABLES `tbl_user` WRITE;
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
-INSERT INTO `tbl_user` VALUES (1,'Rui Barcelos','Rua João Maria da Costa n9B','2090-093','Alpiarça','barcelos.rui@gmail.com','241804744','911909758','rbarcelos','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(2,'Miguel Silva','Vale de Santarém','2005-712','Vale de Santarém','miguelflsilva1995@gmail.com','123123122','919191991','migsilva','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(3,'João Bandarra','Agrantes','2022-024','Amrantes','a@f.pt','223123121','987487987','bandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(4,'Pedro Vicente Nunes','Matas','2025-022','Santarém','b@a.pt','123212323','912911911','pnunes','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(5,'João Bandarra','Agrantes','2022-021','Amrantes','a@f.pt','123123121','987487987','jbandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(6,'Oscar Taquara Cardozo','Rua x','2090-099','Alpiarça','cardozo@ipt.pt','414999444','911922923','cardozo','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(7,'João Canoso','Alpiarça','2090-022','Alpiarça','aluno18839@ipt.pt','233244255','911911991','jcanoso','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(8,'Jonas Pistolas','Caixa Futebol Campus','9999-000','Seixal','jonas@slbenfica.pt','881132222','991122991','jonas','46f94c8de14fb36680850768ff1b7f2a',NULL,0,1),(9,'Rui Vitória','Seixal','2090-093','Seixal','vitoria@slbenfica.pt','222000111','915462000','vitoria','46f94c8de14fb36680850768ff1b7f2a',NULL,0,0),(13,'Aluno Rui Barcelos','Alpiarça','2090-093','Alpiarça','a@a.pt','234992119','911991199','aluno18834','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(14,'Aluno Rui','asas','1231-233','asdasd','a2@1.ss','191292999','999222999','arui','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(15,'Helder Postiga','Alcochete','2999-999','Alcochete','aluno18899@ipt.pt','999922212','912112112','postiga88','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1);
+INSERT INTO `tbl_user` VALUES (1,'Rui Barcelos','Rua João Maria da Costa nº 9-B','2090-093','Alpiarça','barcelos.rui@gmail.com','241804744','911909758','rbarcelos','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(2,'Miguel Silva','Vale de Santarém','2005-712','Vale de Santarém','miguelflsilva1995@gmail.com','123123122','919191991','migsilva','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(3,'João Bandarra','Agrantes','2022-024','Amrantes','a@f.pt','223123121','987487987','bandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(4,'Pedro Vicente Nunes','Matas','2025-022','Santarém','b@a.pt','123212323','912911911','pnunes','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(5,'João Bandarra','Agrantes','2022-021','Amrantes','a@f.pt','123123121','987487987','jbandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(6,'Oscar Taquara Cardozo','Rua x','2090-099','Alpiarça','cardozo@ipt.pt','414999444','911922923','cardozo','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(7,'João Canoso','Alpiarça','2090-022','Alpiarça','aluno18839@ipt.pt','233244255','911911991','jcanoso','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(8,'Jonas Pistolas','Caixa Futebol Campus','9999-000','Seixal','jonas@slbenfica.pt','881132222','991122991','jonas','46f94c8de14fb36680850768ff1b7f2a',NULL,0,0),(9,'Rui Vitória','Seixal','2090-093','Seixal','vitoria@slbenfica.pt','222000111','915462000','vitoria','46f94c8de14fb36680850768ff1b7f2a',NULL,0,0),(13,'Aluno Rui Barcelos','Alpiarça','2090-093','Alpiarça','a@a.pt','234992119','911991199','aluno18834','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(14,'Aluno Rui','asas','1231-233','asdasd','a2@1.ss','191292999','999222999','arui','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(15,'Helder Postiga','Alcochete','2999-999','Alcochete','aluno18899@ipt.pt','999922212','912112112','postiga88','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0);
 /*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -519,7 +517,7 @@ CREATE TABLE `tbl_user_vehicle` (
 
 LOCK TABLES `tbl_user_vehicle` WRITE;
 /*!40000 ALTER TABLE `tbl_user_vehicle` DISABLE KEYS */;
-INSERT INTO `tbl_user_vehicle` VALUES (1,1,1),(1,2,1),(1,23,1),(1,29,1),(1,30,1),(1,31,1),(1,34,1),(1,35,1),(2,3,1);
+INSERT INTO `tbl_user_vehicle` VALUES (1,1,1),(2,3,1),(3,2,1);
 /*!40000 ALTER TABLE `tbl_user_vehicle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -538,13 +536,13 @@ CREATE TABLE `tbl_vehicle` (
   `displacement` int(11) DEFAULT NULL,
   `kilometers` int(11) DEFAULT NULL,
   `fuel` int(11) DEFAULT NULL,
-  `reartiresize` varchar(15) DEFAULT NULL,
   `fronttiresize` varchar(15) DEFAULT NULL,
+  `reartiresize` varchar(15) DEFAULT NULL,
   `date` date DEFAULT NULL,
   PRIMARY KEY (`idVehicle`),
   KEY `modeloveiculofk` (`model`),
   KEY `combustivel` (`fuel`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -553,7 +551,7 @@ CREATE TABLE `tbl_vehicle` (
 
 LOCK TABLES `tbl_vehicle` WRITE;
 /*!40000 ALTER TABLE `tbl_vehicle` DISABLE KEYS */;
-INSERT INTO `tbl_vehicle` VALUES (1,'99-33-HH',1,22,33,1991999,1,'99','99',NULL),(2,'88-00-XX',2,3,43,222333,2,'33','33',NULL),(3,'88-22-ZZ',3,22,34,133223,1,'33','22',NULL),(4,'99-HU-77',1,NULL,NULL,NULL,1,NULL,NULL,NULL),(5,'11-33-DD',29,NULL,NULL,NULL,1,NULL,NULL,NULL),(6,'88-00-DD',29,NULL,NULL,NULL,1,NULL,NULL,NULL),(7,'99-22-FF',7,NULL,NULL,NULL,1,NULL,NULL,NULL),(8,'99-22-DS',7,NULL,NULL,NULL,1,NULL,NULL,NULL),(9,'99-22-DH',7,NULL,NULL,NULL,1,NULL,NULL,NULL),(10,'99-HD-77',99,NULL,NULL,NULL,2,NULL,NULL,NULL),(11,'99-22-AK',2,NULL,NULL,NULL,3,NULL,NULL,NULL),(12,'99-22-AK',2,NULL,NULL,NULL,4,NULL,NULL,NULL),(13,'99-22-AK',2,NULL,NULL,NULL,2,NULL,NULL,NULL),(14,'99-22-DD',2,NULL,NULL,NULL,1,NULL,NULL,NULL),(15,'99-22-DD',2,NULL,NULL,NULL,2,NULL,NULL,NULL),(16,'99-22-DD',2,NULL,NULL,NULL,3,NULL,NULL,NULL),(17,'99-22-DD',2,NULL,NULL,NULL,1,NULL,NULL,NULL),(18,'99-GD-77',99,NULL,NULL,NULL,2,NULL,NULL,NULL),(19,'99-GD-77',99,NULL,NULL,NULL,4,NULL,NULL,NULL),(20,'99-GD-77',99,NULL,NULL,NULL,1,NULL,NULL,NULL),(21,'99-GD-77',99,NULL,NULL,NULL,3,NULL,NULL,NULL),(22,'99-GD-77',99,NULL,NULL,NULL,2,NULL,NULL,NULL),(23,'99-RV-77',99,NULL,NULL,NULL,1,NULL,NULL,NULL),(24,'99-RV-77',99,NULL,NULL,NULL,2,NULL,NULL,NULL),(25,'99-RV-77',99,NULL,NULL,NULL,2,NULL,NULL,NULL),(26,'99-RV-77',99,NULL,NULL,NULL,3,NULL,NULL,NULL),(27,'99-RV-77',99,NULL,NULL,NULL,1,NULL,NULL,NULL),(28,'99-RV-77',99,NULL,NULL,NULL,2,NULL,NULL,NULL),(29,'66-MF-99',14,NULL,NULL,NULL,2,NULL,NULL,NULL),(30,'99-99-FF',19,NULL,NULL,NULL,1,NULL,NULL,NULL),(31,'33-99-HH',17,NULL,NULL,NULL,1,NULL,NULL,NULL),(32,'33-99-HH',17,NULL,NULL,NULL,3,NULL,NULL,NULL),(33,'33-99-HH',17,NULL,NULL,NULL,3,NULL,NULL,NULL),(34,'00-QQ-36',3,NULL,NULL,NULL,1,NULL,NULL,NULL),(35,'99-33-ZZ',4,NULL,NULL,NULL,2,NULL,NULL,NULL);
+INSERT INTO `tbl_vehicle` VALUES (1,'99-33-HH',1,50,1800,199922,1,'195/65R15 91T','195/65R15 91T','1997-03-01'),(2,'99-HH-76',7,90,2000,199922,2,'195/65R15 91T','195/65R15 91T','2009-01-23'),(3,'33-63-TD',88,60,2500,400399,4,'195/65R15 91T','195/65R15 91T','2002-01-13');
 /*!40000 ALTER TABLE `tbl_vehicle` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -566,4 +564,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-28 13:16:04
+-- Dump completed on 2017-07-31 13:48:55
