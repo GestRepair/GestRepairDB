@@ -409,7 +409,7 @@ CREATE TABLE `tbl_service` (
 
 LOCK TABLES `tbl_service` WRITE;
 /*!40000 ALTER TABLE `tbl_service` DISABLE KEYS */;
-INSERT INTO `tbl_service` VALUES (1,'Gestor',0,' ','serviceDefphoto.jpeg'),(2,'Estafeta',0,' ','serviceDefphoto.jpeg'),(3,'Bate-Chapas',20,'Reparação ou Substituição de Chapas','serviceDefphoto.jpeg'),(4,'Inspeção Automóvel',35,'Levamos o seu Veículo à inspeção','serviceDefphoto.jpeg'),(5,'Diagonóstico',5,'Diagonosticamos os problemas do seu veículo','serviceDefphoto.jpeg'),(6,'Alinhamento da Direção',40,'Alinhamos a direção do seu Automóvel','serviceDefphoto.jpeg'),(7,'Suspensão',30,'Tratamos a Suspenção do Seu automóvel','serviceDefphoto.jpeg'),(8,'Pintura',25,'Pintura de Automóveis','serviceDefphoto.jpeg'),(9,'Revisão',20,'Mudança do Oleo','serviceDefphoto.jpeg');
+INSERT INTO `tbl_service` VALUES (1,'Gestor',0,' ','serviceDefphoto.jpeg'),(2,'Estafeta',0,' ','serviceDefphoto.jpeg'),(3,'Bate-Chapas',20,'Reparação ou Substituição de Chapas','serviceDefphoto.jpeg'),(4,'Inspeção Automóvel',35,'Levamos o seu Veículo à inspeção','serviceDefphoto.jpeg'),(5,'Diagonóstico',5,'Diagonosticamos os problemas do seu veículo','serviceDefphoto.jpeg'),(6,'Alinhamento da Direção',40,'Alinhamos a direção do seu Automóvel','serviceDefphoto.jpeg'),(7,'Suspensão',30,'Tratamos a Suspenção do Seu automóvel','serviceDefphoto.jpeg'),(8,'Pintura',25,'Pintura de Automóveis','serviceDefphoto.jpeg'),(9,'Revisão',20,'Mudança do Oleo','service_1501629875567.jpeg');
 /*!40000 ALTER TABLE `tbl_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -566,4 +566,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-31 23:34:48
+-- Dump completed on 2017-08-02  0:32:05
