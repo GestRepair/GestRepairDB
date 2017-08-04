@@ -11,3 +11,7 @@ The Frontend JAVA can be found [here](https://github.com/barcelosrui/GestRepairF
 
 ## Database
 The Frontend JAVA can be found [here](https://github.com/barcelosrui/gestRepairdb)
+
+## HOW TO USED
+1. Ensure that the database server is turned on.
+2. Clone the file database gestrepairdb.sql and import to database server.
