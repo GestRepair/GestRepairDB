@@ -338,7 +338,6 @@ CREATE TABLE `tbl_repair` (
   `vehicle` int(11) NOT NULL,
   `description` text NOT NULL,
   `price` float DEFAULT NULL,
-  `service` int(11) NOT NULL,
   `state` int(11) NOT NULL DEFAULT '1',
   `startDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `finishDate` datetime DEFAULT NULL,
@@ -355,7 +354,7 @@ CREATE TABLE `tbl_repair` (
 
 LOCK TABLES `tbl_repair` WRITE;
 /*!40000 ALTER TABLE `tbl_repair` DISABLE KEYS */;
-INSERT INTO `tbl_repair` VALUES (1,1,'Batido no Espelho Lado Esquerdo',NULL,3,2,'2017-07-18 23:08:21',NULL,'Substituição do Espelho'),(2,2,'Capo Amolgado',NULL,3,2,'2017-07-18 23:08:21',NULL,NULL);
+INSERT INTO `tbl_repair` VALUES (1,1,'Batido no Espelho Lado Esquerdo',NULL,2,'2017-07-18 23:08:21',NULL,'Substituição do Espelho'),(2,2,'Capo Amolgado',NULL,2,'2017-07-18 23:08:21',NULL,NULL);
 /*!40000 ALTER TABLE `tbl_repair` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -566,4 +565,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-15 20:31:21
+-- Dump completed on 2017-08-16  0:26:26
