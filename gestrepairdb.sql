@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `gestrepair` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `gestrepair`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: gestrepair
@@ -122,7 +120,7 @@ CREATE TABLE `tbl_employer_repair` (
 
 LOCK TABLES `tbl_employer_repair` WRITE;
 /*!40000 ALTER TABLE `tbl_employer_repair` DISABLE KEYS */;
-INSERT INTO `tbl_employer_repair` VALUES (3,1),(3,2);
+INSERT INTO `tbl_employer_repair` VALUES (3,1),(10,1),(3,2),(7,2),(1,3),(1,4),(1,5),(1,6),(4,6),(4,7),(6,7),(1,8),(6,8),(7,9);
 /*!40000 ALTER TABLE `tbl_employer_repair` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -237,10 +235,11 @@ CREATE TABLE `tbl_part` (
   `idPart` int(11) NOT NULL AUTO_INCREMENT,
   `namePart` varchar(25) NOT NULL,
   `description` text,
-  `quantidade` int(11) NOT NULL DEFAULT '0',
+  `amount` int(11) NOT NULL DEFAULT '0',
   `price` float DEFAULT NULL,
+  `isActive` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idPart`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,7 +248,7 @@ CREATE TABLE `tbl_part` (
 
 LOCK TABLES `tbl_part` WRITE;
 /*!40000 ALTER TABLE `tbl_part` DISABLE KEYS */;
-INSERT INTO `tbl_part` VALUES (1,'Capo Mercedes','Capo Mercedes',55,300),(2,'Capa Espelho Esquerdo','Com acessórios',34,50);
+INSERT INTO `tbl_part` VALUES (1,'Capo Mercedes','Capo Mercedes',55,300,1),(2,'Capa Espelho Esquerdo','Com acessórios',34,50,1),(3,'Tinta X Cor Y Metalizada','Marca XPTO 5L',5,30,1),(4,'Oleo 1000km','Marca X 5L',36,20,1);
 /*!40000 ALTER TABLE `tbl_part` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,6 +275,30 @@ LOCK TABLES `tbl_part_repair` WRITE;
 /*!40000 ALTER TABLE `tbl_part_repair` DISABLE KEYS */;
 INSERT INTO `tbl_part_repair` VALUES (1,1),(2,1),(1,2);
 /*!40000 ALTER TABLE `tbl_part_repair` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_part_service`
+--
+
+DROP TABLE IF EXISTS `tbl_part_service`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_part_service` (
+  `part` int(11) NOT NULL,
+  `service` int(11) NOT NULL,
+  PRIMARY KEY (`part`,`service`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_part_service`
+--
+
+LOCK TABLES `tbl_part_service` WRITE;
+/*!40000 ALTER TABLE `tbl_part_service` DISABLE KEYS */;
+INSERT INTO `tbl_part_service` VALUES (1,3),(2,3),(3,8),(4,9);
+/*!40000 ALTER TABLE `tbl_part_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -345,7 +368,7 @@ CREATE TABLE `tbl_repair` (
   PRIMARY KEY (`idRepair`),
   KEY `veiculoFK` (`vehicle`),
   KEY `estadoFK` (`state`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -354,7 +377,7 @@ CREATE TABLE `tbl_repair` (
 
 LOCK TABLES `tbl_repair` WRITE;
 /*!40000 ALTER TABLE `tbl_repair` DISABLE KEYS */;
-INSERT INTO `tbl_repair` VALUES (1,1,'Batido no Espelho Lado Esquerdo',NULL,2,'2017-07-18 23:08:21',NULL,'Substituição do Espelho'),(2,2,'Capo Amolgado',NULL,2,'2017-07-18 23:08:21',NULL,NULL);
+INSERT INTO `tbl_repair` VALUES (1,1,'Batido no Espelho Lado Esquerdo',300.44,4,'2017-08-17 16:59:39','2017-08-17 17:59:39','Substituição do Espelho'),(2,2,'Capo Amolgado',NULL,2,'2017-07-18 23:08:21',NULL,NULL),(3,2,'O Carro precisa de Ir à Inspeção é preciso de ver o que precisa.',NULL,1,'2017-08-16 00:02:13',NULL,NULL),(4,1,'Teste Teste\nTeste',3456.42,2,'2017-08-17 15:54:10',NULL,'Teste'),(5,1,'Reparação da Porta Dianteira que levou uma mocada na frente',NULL,2,'2017-08-17 15:45:12',NULL,'Teste'),(6,1,'Teste',NULL,1,'2017-08-17 15:41:26',NULL,NULL),(7,3,'Problema de Juntas',NULL,1,'2017-08-17 21:29:55',NULL,NULL),(8,3,'Diagnosticar o problema das colunas',NULL,1,'2017-08-16 00:49:41',NULL,NULL),(9,3,'Pintura do Espelho de cor vermelha.',NULL,1,'2017-08-16 00:54:44',NULL,NULL);
 /*!40000 ALTER TABLE `tbl_repair` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -408,7 +431,7 @@ CREATE TABLE `tbl_service` (
 
 LOCK TABLES `tbl_service` WRITE;
 /*!40000 ALTER TABLE `tbl_service` DISABLE KEYS */;
-INSERT INTO `tbl_service` VALUES (1,'Gestor',0,' ','serviceDefphoto.jpeg'),(2,'Estafeta',0,' ','serviceDefphoto.jpeg'),(3,'Bate-Chapas',20,'Reparação ou Substituição de Chapas','serviceDefphoto.jpeg'),(4,'Inspeção Automóvel',35,'Levamos o seu Veículo à inspeção','serviceDefphoto.jpeg'),(5,'Diagonóstico',5,'Diagonosticamos os problemas do seu veículo','serviceDefphoto.jpeg'),(6,'Alinhamento da Direção',40,'Alinhamos a direção do seu Automóvel','serviceDefphoto.jpeg'),(7,'Suspensão',30,'Tratamos a Suspenção do Seu automóvel','serviceDefphoto.jpeg'),(8,'Pintura',25,'Pintura de Automóveis','serviceDefphoto.jpeg'),(9,'Revisão',20,'Mudança do Oleo','service_1501629875567.jpeg');
+INSERT INTO `tbl_service` VALUES (1,'Gestor',0,' ','serviceDefphoto.jpeg'),(2,'Funcionário',0,' ','serviceDefphoto.jpeg'),(3,'Bate-Chapas',20,'Reparação ou Substituição de Chapas em todas as marcas existentes no mercado.','serviceDefphoto.jpeg'),(4,'Inspeção Automóvel',40,'Levamos o seu Veículo à inspeção','serviceDefphoto.jpeg'),(5,'Diagonóstico',5,'Diagonosticamos os problemas do seu veículo','serviceDefphoto.jpeg'),(6,'Alinhamento da Direção',40,'Alinhamos a direção do seu Automóvel','serviceDefphoto.jpeg'),(7,'Suspensão',30,'Tratamos a Suspenção do Seu automóvel','serviceDefphoto.jpeg'),(8,'Pintura',25,'Pintura de Automóveis','serviceDefphoto.jpeg'),(9,'Revisão',20,'Mudança do Oleo','service_1501629875567.jpeg');
 /*!40000 ALTER TABLE `tbl_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -565,4 +588,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-16  0:26:26
+-- Dump completed on 2017-08-18  1:56:10
