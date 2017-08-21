@@ -52,17 +52,16 @@ DROP TABLE IF EXISTS `tbl_budget`;
 CREATE TABLE `tbl_budget` (
   `idBudget` int(11) NOT NULL AUTO_INCREMENT,
   `vehicle` int(11) NOT NULL,
-  `service` int(11) NOT NULL,
   `description` text NOT NULL,
   `price` float DEFAULT NULL,
   `processOpen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `repairTime` int(11) DEFAULT NULL,
-  `state` int(11) NOT NULL,
+  `state` int(11) NOT NULL DEFAULT '1',
   `processClose` date DEFAULT NULL,
   `resolution` text,
   PRIMARY KEY (`idBudget`),
   KEY `veic_fk` (`vehicle`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,8 +70,32 @@ CREATE TABLE `tbl_budget` (
 
 LOCK TABLES `tbl_budget` WRITE;
 /*!40000 ALTER TABLE `tbl_budget` DISABLE KEYS */;
-INSERT INTO `tbl_budget` VALUES (1,1,8,'O carro Não pisca do lado direito, na parte frontal e já houve troca de lampadas',NULL,'2017-07-19 10:04:45',NULL,1,NULL,NULL),(2,1,9,'O carro Necessita de uma pintura',NULL,'2017-07-19 10:04:45',NULL,2,NULL,'Tinta');
+INSERT INTO `tbl_budget` VALUES (1,1,'O carro Não pisca do lado direito, na parte frontal e já houve troca de lampadas',50,'2017-07-19 10:04:45',4,2,NULL,'Teste'),(2,1,'O carro Necessita de uma pintura',500,'2017-07-19 10:04:45',4,2,NULL,'Usa-se Tinta Vermelha Metalizada'),(3,5,'Levar o Veículo à Inspeção',NULL,'2017-08-21 18:30:14',NULL,1,NULL,NULL);
 /*!40000 ALTER TABLE `tbl_budget` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_budget_service`
+--
+
+DROP TABLE IF EXISTS `tbl_budget_service`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_budget_service` (
+  `budget` int(11) NOT NULL,
+  `service` int(11) NOT NULL,
+  PRIMARY KEY (`budget`,`service`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_budget_service`
+--
+
+LOCK TABLES `tbl_budget_service` WRITE;
+/*!40000 ALTER TABLE `tbl_budget_service` DISABLE KEYS */;
+INSERT INTO `tbl_budget_service` VALUES (1,8),(2,9),(3,4);
+/*!40000 ALTER TABLE `tbl_budget_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -122,7 +145,7 @@ CREATE TABLE `tbl_employer_repair` (
 
 LOCK TABLES `tbl_employer_repair` WRITE;
 /*!40000 ALTER TABLE `tbl_employer_repair` DISABLE KEYS */;
-INSERT INTO `tbl_employer_repair` VALUES (3,1),(10,1),(3,2),(7,2),(1,3),(1,4),(1,5),(4,5),(6,5),(1,6),(4,6),(4,7),(6,7),(1,8),(6,8),(7,9);
+INSERT INTO `tbl_employer_repair` VALUES (3,1),(8,1),(10,1),(3,2),(7,2),(1,3),(1,4),(1,5),(4,5),(6,5),(1,6),(4,6),(4,7),(6,7),(1,8),(6,8),(7,9),(10,10),(7,11),(10,12);
 /*!40000 ALTER TABLE `tbl_employer_repair` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,7 +273,7 @@ CREATE TABLE `tbl_part` (
 
 LOCK TABLES `tbl_part` WRITE;
 /*!40000 ALTER TABLE `tbl_part` DISABLE KEYS */;
-INSERT INTO `tbl_part` VALUES (1,'Capo Mercedes','Capo Mercedes',1950,300,1),(2,'Capa Espelho Esquerdo','Com acessórios sem vidro',34,50,1),(3,'Tinta X Cor Y Metalizada','Marca XPTO 5L',9,30,1),(4,'Oleo 1000km','Marca XYY 5L',36,20,1),(5,'Tinta H','Marca OPXT',45,49.44,1),(6,'Tinta H','Marca OPXT',35,49.44,1),(7,'Tinta Hk','Marca OPXT',45,49.44,1),(8,'Parafuso',NULL,997,1,1),(9,'Parafuso','Typo Philips;\nTamanho H;\nMarca I',1000,0.5,1),(12,'Vareta do Oleo',NULL,3,5,1),(13,'Tinta Cor I','5L',4,20,1);
+INSERT INTO `tbl_part` VALUES (1,'Capo Mercedes','Capo Mercedes',1950,300,1),(2,'Capa Espelho Esquerdo','Com acessórios sem vidro',34,50,1),(3,'Tinta X Cor Y Metalizada','Marca XPTO 5L',9,30,1),(4,'Oleo 1000km','Marca XYY 5L',36,20,1),(5,'Tinta H','Marca OPXT',39,49.44,1),(6,'Tinta H','Marca OPXT',35,49.44,1),(7,'Tinta Hk','Marca OPXT',45,49.44,1),(8,'Parafuso',NULL,997,1,1),(9,'Parafuso','Typo Philips;\nTamanho H;\nMarca I',1000,0.5,1),(12,'Vareta do Oleo',NULL,0,5,1),(13,'Tinta Cor I','5L',4,20,1);
 /*!40000 ALTER TABLE `tbl_part` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,7 +297,7 @@ CREATE TABLE `tbl_part_repair` (
 
 LOCK TABLES `tbl_part_repair` WRITE;
 /*!40000 ALTER TABLE `tbl_part_repair` DISABLE KEYS */;
-INSERT INTO `tbl_part_repair` VALUES (1,1),(1,2),(1,9),(2,1),(3,2),(6,2),(6,4),(6,8),(6,13),(8,1),(8,8),(8,9),(9,3),(9,7),(13,8),(6,4),(6,5),(6,2),(6,8),(6,13),(1,12),(1,12),(1,12),(1,12),(1,12),(1,8),(1,8),(1,6),(1,6);
+INSERT INTO `tbl_part_repair` VALUES (1,1),(1,2),(1,9),(2,1),(3,2),(6,2),(6,4),(6,8),(6,13),(8,1),(8,8),(8,9),(9,3),(9,7),(13,8),(6,4),(6,5),(6,2),(6,8),(6,13),(1,12),(1,12),(1,12),(1,12),(1,12),(1,8),(1,8),(1,6),(1,6),(5,12),(5,12),(5,12),(5,12),(5,12),(5,12),(5,12),(5,12);
 /*!40000 ALTER TABLE `tbl_part_repair` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -369,7 +392,7 @@ CREATE TABLE `tbl_repair` (
   PRIMARY KEY (`idRepair`),
   KEY `veiculoFK` (`vehicle`),
   KEY `estadoFK` (`state`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -378,7 +401,7 @@ CREATE TABLE `tbl_repair` (
 
 LOCK TABLES `tbl_repair` WRITE;
 /*!40000 ALTER TABLE `tbl_repair` DISABLE KEYS */;
-INSERT INTO `tbl_repair` VALUES (1,1,'Batido no Espelho Lado Esquerdo',300.44,4,'2017-08-17 16:59:39','2017-08-17 17:59:39','Substituição do Espelho'),(2,2,'Capo Amolgado',NULL,2,'2017-07-18 23:08:21',NULL,NULL),(3,2,'O Carro precisa de Ir à Inspeção é preciso de ver o que precisa.',NULL,1,'2017-08-16 00:02:13',NULL,NULL),(4,1,'Teste Teste\nTeste',3456.42,1,'2017-08-18 21:01:26',NULL,'Teste TESTE TESTE TESTE'),(5,1,'Reparação da Porta Dianteira que levou uma mocada na frente',NULL,2,'2017-08-17 15:45:12',NULL,'Teste'),(6,1,'Teste',NULL,1,'2017-08-17 15:41:26',NULL,NULL),(7,3,'Problema de Juntas',NULL,1,'2017-08-17 21:29:55',NULL,NULL),(8,3,'Diagnosticar o problema das colunas',NULL,1,'2017-08-16 00:49:41',NULL,NULL),(9,3,'Pintura do Espelho de cor vermelha.',NULL,1,'2017-08-16 00:54:44',NULL,NULL);
+INSERT INTO `tbl_repair` VALUES (1,1,'Batido no Espelho Lado Esquerdo',300.44,4,'2017-08-17 16:59:39','2017-08-17 17:59:39','Substituição do Espelho'),(2,2,'Capo Amolgado',NULL,2,'2017-07-18 23:08:21',NULL,NULL),(3,2,'O Carro precisa de Ir à Inspeção é preciso de ver o que precisa.',NULL,1,'2017-08-16 00:02:13',NULL,NULL),(4,1,'Teste Teste\nTeste',3456.42,1,'2017-08-18 21:01:26',NULL,'Teste TESTE TESTE TESTE'),(5,1,'Reparação da Porta Dianteira que levou uma mocada na frente',NULL,2,'2017-08-17 15:45:12',NULL,'Teste'),(6,1,'Teste',NULL,1,'2017-08-17 15:41:26',NULL,NULL),(7,3,'Problema de Juntas',NULL,1,'2017-08-17 21:29:55',NULL,NULL),(8,3,'Diagnosticar o problema das colunas',NULL,1,'2017-08-16 00:49:41',NULL,NULL),(9,3,'Pintura do Espelho de cor vermelha.',NULL,1,'2017-08-16 00:54:44',NULL,NULL),(10,3,'Teste 12345',NULL,1,'2017-08-21 18:10:46',NULL,NULL),(11,1,'Pintura de cor vermelha',NULL,1,'2017-08-21 18:12:07',NULL,NULL),(12,3,'t5e4rgsrtyh6yhwvyw45tyw45tygw',NULL,1,'2017-08-21 18:13:17',NULL,NULL);
 /*!40000 ALTER TABLE `tbl_repair` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -432,7 +455,7 @@ CREATE TABLE `tbl_service` (
 
 LOCK TABLES `tbl_service` WRITE;
 /*!40000 ALTER TABLE `tbl_service` DISABLE KEYS */;
-INSERT INTO `tbl_service` VALUES (1,'Gestor',0,' ','serviceDefphoto.jpeg'),(2,'Funcionário',0,' ','serviceDefphoto.jpeg'),(3,'Bate-Chapas',20,'Reparação ou Substituição de Chapas em todas as marcas existentes no mercado.','serviceDefphoto.jpeg'),(4,'Inspeção Automóvel',40,'Levamos o seu Veículo à inspeção','serviceDefphoto.jpeg'),(5,'Diagonóstico',5,'Diagonosticamos os problemas do seu veículo','serviceDefphoto.jpeg'),(6,'Alinhamento da Direção',40,'Alinhamos a direção do seu Automóvel','serviceDefphoto.jpeg'),(7,'Suspensão',30,'Tratamos a Suspenção do Seu automóvel','serviceDefphoto.jpeg'),(8,'Pintura',25,'Pintura de Automóveis','serviceDefphoto.jpeg'),(9,'Revisão',20,'Mudança do Oleo','service_1501629875567.jpeg');
+INSERT INTO `tbl_service` VALUES (1,'Gestor',0,' ','serviceDefphoto.jpeg'),(2,'Funcionário',0,' ','serviceDefphoto.jpeg'),(3,'Bate-Chapas',20,'Reparação ou Substituição de Chapas em todas as marcas existentes no mercado.','serviceDefphoto.jpeg'),(4,'Inspeção Automóvel',40,'Levamos o seu Veículo à inspeção','serviceDefphoto.jpeg'),(5,'Diagnóstico',5,'Diagonosticamos os problemas do seu veículo','serviceDefphoto.jpeg'),(6,'Alinhamento da Direção',40,'Alinhamos a direção do seu Automóvel','serviceDefphoto.jpeg'),(7,'Suspensão',30,'Tratamos a Suspenção do Seu automóvel','serviceDefphoto.jpeg'),(8,'Pintura',25,'Pintura de Automóveis','serviceDefphoto.jpeg'),(9,'Revisão',20,'Mudança do Oleo','service_1501629875567.jpeg');
 /*!40000 ALTER TABLE `tbl_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -480,7 +503,7 @@ CREATE TABLE `tbl_state_repair` (
 
 LOCK TABLES `tbl_state_repair` WRITE;
 /*!40000 ALTER TABLE `tbl_state_repair` DISABLE KEYS */;
-INSERT INTO `tbl_state_repair` VALUES (1,'Diagonóstico'),(2,'A Reparar'),(3,'Reparado'),(4,'Entregue');
+INSERT INTO `tbl_state_repair` VALUES (1,'Diagnóstico'),(2,'A Reparar'),(3,'Reparado'),(4,'Entregue');
 /*!40000 ALTER TABLE `tbl_state_repair` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -516,7 +539,7 @@ CREATE TABLE `tbl_user` (
 
 LOCK TABLES `tbl_user` WRITE;
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
-INSERT INTO `tbl_user` VALUES (1,'Rui Barcelos','Rua João Maria da Costa nº 9-B','2090-093','Alpiarça','barcelos.rui@gmail.com','241804744','911909758','rbarcelos','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(2,'Miguel Silva','Vale de Santarém','2005-712','Vale de Santarém','miguelflsilva1995@gmail.com','123123122','919191991','migsilva','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(3,'João Bandarra','Agrantes','2022-024','Amrantes','a@f.pt','223123121','987487987','bandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(4,'Pedro Vicente Nunes','Matas','2025-022','Santarém','b@a.pt','123212323','912911911','pnunes','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(5,'João Bandarra','Agrantes','2022-021','Amrantes','a@f.pt','123123121','987487987','jbandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(6,'Oscar Taquara Cardozo','Rua x','2090-099','Alpiarça','cardozo@ipt.pt','414999444','911922923','cardozo','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(7,'João Canoso','Alpiarça','2090-022','Alpiarça','aluno18839@ipt.pt','233244255','911911991','jcanoso','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(8,'Jonas Pistolas','Caixa Futebol Campus','9999-000','Seixal','jonas@slbenfica.pt','881132222','991122991','jonas','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(9,'Rui Vitória','Seixal','2090-093','Seixal','vitoria@slbenfica.pt','222000111','915462000','vitoria','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(13,'Aluno Rui Barcelos','Alpiarça','2090-093','Alpiarça','a@a.pt','234992119','911991199','aluno18834','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(14,'Aluno Rui','asas','1231-233','asdasd','a2@1.pt','191292999','999222999','arui','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(15,'Helder Postiga','Alcochete','2009-333','Alcochete','aluno18899@ipt.pt','999922212','912112112','postiga88','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(19,'Barcelos X','Rua de Alpiarça','2090-093','Alpiarça','rui_barcelos_179@hotmail.com','332244332','911099099','bar18834','4697ffe86368a1391f6b410522c286c5',NULL,1,1);
+INSERT INTO `tbl_user` VALUES (1,'Rui Barcelos','Rua João Maria da Costa nº 9-B','2090-093','Alpiarça','barcelos.rui@gmail.com','241804744','911909758','rbarcelos','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(2,'Miguel Silva','Vale de Santarém','2005-712','Vale de Santarém','miguelflsilva1995@gmail.com','123123122','919191991','migsilva','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(3,'João Bandarra','Agrantes','2022-024','Amrantes','a@f.pt','223123121','987487987','bandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(4,'Pedro Vicente Nunes','Matas','2025-022','Santarém','b@a.pt','123212323','912911911','pnunes','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(5,'João Bandarra','Agrantes','2022-021','Amrantes','a@f.pt','123123121','987487987','jbandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(6,'Oscar Taquara Cardozo','Rua x','2090-099','Alpiarça','cardozo@ipt.pt','414999444','911922923','cardozo','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(7,'João Canoso','Alpiarça','2090-022','Alpiarça','aluno18839@ipt.pt','233244255','911911991','jcanoso','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(8,'Jonas Pistolas','Caixa Futebol Campus','9999-000','Seixal','jonas@slbenfica.pt','881132222','991122991','jonas','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(9,'Rui Vitória','Seixal','2090-093','Seixal','vitoria@slbenfica.pt','222000111','915462000','vitoria','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(13,'Aluno Rui Barcelos','Alpiarça','2090-093','Alpiarça','a@a.pt','234992119','911991199','aluno18834','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(14,'Aluno Rui','asas','1231-233','asdasd','a2@1.pt','191292999','999222999','arui','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(15,'Helder Postiga','Alcochete','2009-334','Alcochete','aluno18899@ipt.pt','999922212','912112112','postiga88','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(19,'Barcelos X','Rua de Alpiarça','2090-093','Alpiarça','rui_barcelos_179@hotmail.com','332244332','911099099','bar18834','4697ffe86368a1391f6b410522c286c5',NULL,1,1);
 /*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -576,7 +599,7 @@ CREATE TABLE `tbl_vehicle` (
 
 LOCK TABLES `tbl_vehicle` WRITE;
 /*!40000 ALTER TABLE `tbl_vehicle` DISABLE KEYS */;
-INSERT INTO `tbl_vehicle` VALUES (1,'99-33-HV',21,100,1850,199922,2,'195/65R15 91T','195/65R15 91T','2001-12-12'),(2,'99-HH-76',2,90,2000,199922,2,'195/65R15 91T','195/65R15 91T','2009-04-29'),(3,'33-63-TD',88,60,2500,400399,4,'195/65R15 91T','195/65R15 91T','2002-01-13'),(4,'55-DD-23',129,75,1800,555333,2,'195/65R15 91T','195/65R15 91T','2005-02-12'),(5,'99-RV-18',33,200,2333,34442,2,'195/65R15 91T','195/65R15 91T','2016-02-12'),(6,'44-QS-99',1328,30000,2000,32354,1,'fgaertge','afsdgerfg','2015-12-03'),(7,'88-33-BD',244,50,1100,423543,1,'35rertga','35rertga','1993-01-23');
+INSERT INTO `tbl_vehicle` VALUES (1,'99-33-HV',21,100,1850,199922,2,'195/65R15 91T','195/65R15 91T','2001-12-14'),(2,'99-HH-76',2,90,2000,199922,2,'195/65R15 91T','195/65R15 91T','2009-04-29'),(3,'33-63-TD',88,60,2500,400399,4,'195/65R15 91T','195/65R15 91T','2002-01-13'),(4,'55-DD-23',129,75,1800,555333,2,'195/65R15 91T','195/65R15 91T','2005-02-12'),(5,'99-RV-18',33,200,2333,34442,2,'195/65R15 91T','195/65R15 91T','2016-02-12'),(6,'44-QS-99',1328,30000,2000,32354,1,'fgaertge','afsdgerfg','2015-12-03'),(7,'88-33-BD',244,50,1100,423543,1,'35rertga','35rertga','1993-01-23');
 /*!40000 ALTER TABLE `tbl_vehicle` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -589,4 +612,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-20 23:37:07
+-- Dump completed on 2017-08-22  0:40:52
