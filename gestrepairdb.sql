@@ -94,7 +94,7 @@ CREATE TABLE `tbl_budget_service` (
 
 LOCK TABLES `tbl_budget_service` WRITE;
 /*!40000 ALTER TABLE `tbl_budget_service` DISABLE KEYS */;
-INSERT INTO `tbl_budget_service` VALUES (1,8),(2,9),(3,4);
+INSERT INTO `tbl_budget_service` VALUES (1,8),(2,5),(2,9),(3,4);
 /*!40000 ALTER TABLE `tbl_budget_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +120,7 @@ CREATE TABLE `tbl_employer` (
 
 LOCK TABLES `tbl_employer` WRITE;
 /*!40000 ALTER TABLE `tbl_employer` DISABLE KEYS */;
-INSERT INTO `tbl_employer` VALUES (1,1,1,1),(2,2,2,1),(3,3,3,1),(4,6,5,0),(5,4,9,1),(6,15,7,1),(7,14,8,1),(8,13,5,1),(9,5,4,0),(10,9,6,1),(11,19,7,1),(12,7,4,1);
+INSERT INTO `tbl_employer` VALUES (1,1,1,1),(2,2,2,1),(3,3,3,1),(4,6,5,1),(5,4,9,1),(6,15,7,1),(7,14,4,1),(8,13,5,1),(9,5,4,1),(10,9,6,1),(11,19,7,1),(12,7,4,1);
 /*!40000 ALTER TABLE `tbl_employer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +208,7 @@ DROP TABLE IF EXISTS `tbl_fuel`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_fuel` (
   `idFuel` int(11) NOT NULL AUTO_INCREMENT,
-  `nameFuel` varchar(25) DEFAULT NULL,
+  `nameFuel` varchar(50) NOT NULL,
   PRIMARY KEY (`idFuel`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -219,7 +219,7 @@ CREATE TABLE `tbl_fuel` (
 
 LOCK TABLES `tbl_fuel` WRITE;
 /*!40000 ALTER TABLE `tbl_fuel` DISABLE KEYS */;
-INSERT INTO `tbl_fuel` VALUES (1,'Gasolina Sem-Chumbo 95'),(2,'Gasoleo'),(3,'Gasolina Sem Chumbo 98'),(4,'GPL'),(5,'Híbrido'),(6,'Elétrico');
+INSERT INTO `tbl_fuel` VALUES (1,'Gasolina Sem-Chumbo 95 super 98'),(2,'Gasoleo'),(3,'Gasolina Sem Chumbo 98'),(4,'GPL'),(5,'Híbrido'),(6,'Elétrico');
 /*!40000 ALTER TABLE `tbl_fuel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +273,7 @@ CREATE TABLE `tbl_part` (
 
 LOCK TABLES `tbl_part` WRITE;
 /*!40000 ALTER TABLE `tbl_part` DISABLE KEYS */;
-INSERT INTO `tbl_part` VALUES (1,'Capo Mercedes','Capo Mercedes',1950,300,1),(2,'Capa Espelho Esquerdo','Com acessórios sem vidro',34,50,1),(3,'Tinta X Cor Y Metalizada','Marca XPTO 5L',9,30,1),(4,'Oleo 1000km','Marca XYY 5L',36,20,1),(5,'Tinta H','Marca OPXT',39,49.44,1),(6,'Tinta H','Marca OPXT',35,49.44,1),(7,'Tinta Hk','Marca OPXT',45,49.44,1),(8,'Parafuso',NULL,997,1,1),(9,'Parafuso','Typo Philips;\nTamanho H;\nMarca I',1000,0.5,1),(12,'Vareta do Oleo',NULL,0,5,1),(13,'Tinta Cor I','5L',4,20,1);
+INSERT INTO `tbl_part` VALUES (1,'Capo Mercedes','Capo Mercedes',1950,300,1),(2,'Capa Espelho Esquerdo','Com acessórios sem vidro',34,50,1),(3,'Tinta X Cor Y Metalizada','Marca XPTO 5L',9,30,1),(4,'Oleo 1000km','Marca XYY 5L',36,20,1),(5,'Tinta H','Marca OPXT',38,49.44,1),(6,'Tinta H','Marca OPXT',35,49.44,1),(7,'Tinta Hk','Marca OPXT',45,49.44,1),(8,'Parafuso',NULL,997,1,1),(9,'Parafuso','Typo Philips;\nTamanho H;\nMarca I',1000,0.5,1),(12,'Vareta do Oleo',NULL,0,5,1),(13,'Tinta Cor I','5L',4,20,1);
 /*!40000 ALTER TABLE `tbl_part` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -297,7 +297,7 @@ CREATE TABLE `tbl_part_repair` (
 
 LOCK TABLES `tbl_part_repair` WRITE;
 /*!40000 ALTER TABLE `tbl_part_repair` DISABLE KEYS */;
-INSERT INTO `tbl_part_repair` VALUES (1,1),(1,2),(1,9),(2,1),(3,2),(6,2),(6,4),(6,8),(6,13),(8,1),(8,8),(8,9),(9,3),(9,7),(13,8),(6,4),(6,5),(6,2),(6,8),(6,13),(1,12),(1,12),(1,12),(1,12),(1,12),(1,8),(1,8),(1,6),(1,6),(5,12),(5,12),(5,12),(5,12),(5,12),(5,12),(5,12),(5,12);
+INSERT INTO `tbl_part_repair` VALUES (1,1),(1,2),(1,9),(2,1),(3,2),(6,2),(6,4),(6,8),(6,13),(8,1),(8,8),(8,9),(9,3),(9,7),(13,8),(6,4),(6,5),(6,2),(6,8),(6,13),(1,12),(1,12),(1,12),(1,12),(1,12),(1,8),(1,8),(1,6),(1,6),(5,12),(5,12),(5,12),(5,12),(5,12),(5,12),(5,12),(5,12),(1,5);
 /*!40000 ALTER TABLE `tbl_part_repair` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -321,7 +321,7 @@ CREATE TABLE `tbl_part_service` (
 
 LOCK TABLES `tbl_part_service` WRITE;
 /*!40000 ALTER TABLE `tbl_part_service` DISABLE KEYS */;
-INSERT INTO `tbl_part_service` VALUES (1,3),(1,8),(2,3),(3,8),(4,9),(5,8),(6,8),(7,8),(8,3),(8,4),(9,3),(9,9),(12,5),(13,8);
+INSERT INTO `tbl_part_service` VALUES (1,3),(1,8),(2,3),(3,8),(4,9),(5,8),(6,8),(7,6),(7,8),(8,3),(8,4),(9,3),(9,9),(12,5),(13,8);
 /*!40000 ALTER TABLE `tbl_part_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -539,7 +539,7 @@ CREATE TABLE `tbl_user` (
 
 LOCK TABLES `tbl_user` WRITE;
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
-INSERT INTO `tbl_user` VALUES (1,'Rui Barcelos','Rua João Maria da Costa nº 9-B','2090-093','Alpiarça','barcelos.rui@gmail.com','241804744','911909758','rbarcelos','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(2,'Miguel Silva','Vale de Santarém','2005-712','Vale de Santarém','miguelflsilva1995@gmail.com','123123122','919191991','migsilva','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(3,'João Bandarra','Agrantes','2022-024','Amrantes','a@f.pt','223123121','987487987','bandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(4,'Pedro Vicente Nunes','Matas','2025-022','Santarém','b@a.pt','123212323','912911911','pnunes','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(5,'João Bandarra','Agrantes','2022-021','Amrantes','a@f.pt','123123121','987487987','jbandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(6,'Oscar Taquara Cardozo','Rua x','2090-099','Alpiarça','cardozo@ipt.pt','414999444','911922923','cardozo','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(7,'João Canoso','Alpiarça','2090-022','Alpiarça','aluno18839@ipt.pt','233244255','911911991','jcanoso','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(8,'Jonas Pistolas','Caixa Futebol Campus','9999-000','Seixal','jonas@slbenfica.pt','881132222','991122991','jonas','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(9,'Rui Vitória','Seixal','2090-093','Seixal','vitoria@slbenfica.pt','222000111','915462000','vitoria','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(13,'Aluno Rui Barcelos','Alpiarça','2090-093','Alpiarça','a@a.pt','234992119','911991199','aluno18834','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(14,'Aluno Rui','asas','1231-233','asdasd','a2@1.pt','191292999','999222999','arui','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(15,'Helder Postiga','Alcochete','2009-334','Alcochete','aluno18899@ipt.pt','999922212','912112112','postiga88','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(19,'Barcelos X','Rua de Alpiarça','2090-093','Alpiarça','rui_barcelos_179@hotmail.com','332244332','911099099','bar18834','4697ffe86368a1391f6b410522c286c5',NULL,1,1);
+INSERT INTO `tbl_user` VALUES (1,'Rui Barcelos','Rua João Maria da Costa nº 9-B','2090-093','Alpiarça','barcelos.rui@gmail.com','241804744','911909758','rbarcelos','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(2,'Miguel Silva','Vale de Santarém','2005-712','Vale de Santarém','miguelflsilva1995@gmail.com','123123122','919191991','migsilva','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(3,'João Bandarra','Agrantes','2022-024','Amrantes','a@f.pt','223123121','987487987','bandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(4,'Pedro Vicente Nunes','Matas','2025-022','Santarém','b@a.pt','123212323','912911911','pnunes','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(5,'João Bandarra','Agrantes','2022-021','Amrantes','a@f.pt','123123121','987487987','jbandarra','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(6,'Oscar Taquara Cardozo','Rua x','2090-099','Alpiarça','cardozo@ipt.pt','414999444','911922923','cardozo','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(7,'João Canoso','Alpiarça','2090-022','Alpiarça','aluno18839@ipt.pt','233244255','911911991','jcanoso','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(8,'Jonas Pistolas','Caixa Futebol Campus','9999-000','Seixal','jonas@slbenfica.pt','881132222','991122991','jonas','46f94c8de14fb36680850768ff1b7f2a',NULL,1,0),(9,'Rui Vitória','Seixal','2090-093','Seixal','vitoria@slbenfica.pt','222000111','915462000','vitoria','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(13,'Aluno Rui Barcelos','Alpiarça','2090-093','Alpiarça','a@a.pt','234992119','911991199','aluno18834','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(14,'Aluno Rui','asas','1231-233','asdasd','a2@1.pt','191292999','999222999','arui','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(15,'Helder Postiga','Alcochete','2009-334','Alcochete','aluno18899@ipt.pt','999922212','912112112','postiga88','46f94c8de14fb36680850768ff1b7f2a',NULL,1,1),(19,'Barcelos X','Rua de Alpiarça','2090-093','Alpiarça','rui_barcelos_179@hotmail.com','332244332','911099099','bar18834','4697ffe86368a1391f6b410522c286c5',NULL,1,1);
 /*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -612,4 +612,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-22  0:40:52
+-- Dump completed on 2017-08-23  0:44:56
