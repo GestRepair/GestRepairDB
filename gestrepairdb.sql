@@ -4,7 +4,7 @@ USE `gestrepair`;
 --
 -- Host: 127.0.0.1    Database: gestrepair
 -- ------------------------------------------------------
--- Server version	5.7.18-log
+-- Server version	5.7.11-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -150,56 +150,6 @@ INSERT INTO `tbl_employer_repair` VALUES (3,1),(8,1),(10,1),(3,2),(7,2),(1,3),(1
 UNLOCK TABLES;
 
 --
--- Table structure for table `tbl_encomenda`
---
-
-DROP TABLE IF EXISTS `tbl_encomenda`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_encomenda` (
-  `id_encomenda` int(11) NOT NULL AUTO_INCREMENT,
-  `fornecedor` int(11) NOT NULL,
-  `peca` int(11) NOT NULL,
-  `quantidade` int(11) NOT NULL,
-  PRIMARY KEY (`id_encomenda`),
-  KEY `fornecedorfk` (`fornecedor`),
-  KEY `pecaencomendafk` (`peca`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbl_encomenda`
---
-
-LOCK TABLES `tbl_encomenda` WRITE;
-/*!40000 ALTER TABLE `tbl_encomenda` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_encomenda` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tbl_fornecedor`
---
-
-DROP TABLE IF EXISTS `tbl_fornecedor`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_fornecedor` (
-  `id_fornecedor` int(11) NOT NULL AUTO_INCREMENT,
-  `nomeFornecedor` varchar(25) NOT NULL,
-  PRIMARY KEY (`id_fornecedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbl_fornecedor`
---
-
-LOCK TABLES `tbl_fornecedor` WRITE;
-/*!40000 ALTER TABLE `tbl_fornecedor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_fornecedor` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tbl_fuel`
 --
 
@@ -326,54 +276,6 @@ INSERT INTO `tbl_part_service` VALUES (1,3),(1,8),(2,3),(3,8),(4,9),(5,8),(6,8),
 UNLOCK TABLES;
 
 --
--- Table structure for table `tbl_pecafornecedor`
---
-
-DROP TABLE IF EXISTS `tbl_pecafornecedor`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_pecafornecedor` (
-  `idpeca` int(11) NOT NULL AUTO_INCREMENT,
-  `idfornecedor` int(11) NOT NULL,
-  PRIMARY KEY (`idpeca`,`idfornecedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbl_pecafornecedor`
---
-
-LOCK TABLES `tbl_pecafornecedor` WRITE;
-/*!40000 ALTER TABLE `tbl_pecafornecedor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_pecafornecedor` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tbl_pecafornecida`
---
-
-DROP TABLE IF EXISTS `tbl_pecafornecida`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_pecafornecida` (
-  `idpecafornecida` int(11) NOT NULL AUTO_INCREMENT,
-  `pecafornecida` varchar(50) DEFAULT NULL,
-  `fornecedor` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idpecafornecida`),
-  KEY `pecafornecidafornecedorFK` (`fornecedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbl_pecafornecida`
---
-
-LOCK TABLES `tbl_pecafornecida` WRITE;
-/*!40000 ALTER TABLE `tbl_pecafornecida` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_pecafornecida` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tbl_repair`
 --
 
@@ -430,6 +332,30 @@ LOCK TABLES `tbl_schedule` WRITE;
 /*!40000 ALTER TABLE `tbl_schedule` DISABLE KEYS */;
 INSERT INTO `tbl_schedule` VALUES (4,3,2,'2017-09-21 00:00:00',0),(5,3,2,'2018-02-01 00:00:00',0),(6,3,2,'2017-07-26 09:49:00',1),(7,8,1,'2017-07-19 09:51:00',0),(8,9,1,'2019-01-01 10:00:00',1),(9,8,3,'2017-08-01 15:21:00',1),(10,8,1,'2017-07-19 14:00:00',1),(11,9,3,'2017-07-19 14:55:00',1),(12,8,1,'2019-03-05 14:00:00',1),(13,3,2,'2021-07-11 16:00:00',1),(14,9,3,'2021-12-30 15:00:00',1),(15,9,2,'2021-12-31 18:00:00',1);
 /*!40000 ALTER TABLE `tbl_schedule` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_schedule_date`
+--
+
+DROP TABLE IF EXISTS `tbl_schedule_date`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_schedule_date` (
+  `idDate` int(11) NOT NULL AUTO_INCREMENT,
+  `nameDate` varchar(45) NOT NULL,
+  PRIMARY KEY (`idDate`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_schedule_date`
+--
+
+LOCK TABLES `tbl_schedule_date` WRITE;
+/*!40000 ALTER TABLE `tbl_schedule_date` DISABLE KEYS */;
+INSERT INTO `tbl_schedule_date` VALUES (1,'Hoje'),(2,'Anterior'),(3,'Depois');
+/*!40000 ALTER TABLE `tbl_schedule_date` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -612,4 +538,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-23  0:49:26
+-- Dump completed on 2017-08-23 22:54:18
