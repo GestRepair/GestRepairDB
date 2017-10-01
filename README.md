@@ -1,16 +1,19 @@
 # GestRepair Database
 
 ## API
-The API can be found [here](https://github.com/barcelosrui/gestRepairapi)
+The API can be found [here](https://github.com/GestRepair/GestRepairAPI)
 
 ## Frontend Desktop Java
-The Frontend JAVA can be found [here](https://github.com/barcelosrui/GestRepairFrontendJava)
+The Frontend JAVA can be found [here](https://github.com/GestRepair/GestRepairBackOffice)
 
 ## Frontend Web Angular
-The Frontend JAVA can be found [here](https://github.com/barcelosrui/GestRepairFrontendAngular)
+The Frontend JAVA can be found [here](https://github.com/GestRepair/GestRepairWeb)
 
 ## Database
-The Frontend JAVA can be found [here](https://github.com/barcelosrui/gestRepairdb)
+The Frontend JAVA can be found [here](https://github.com/GestRepair/GestRepairDB)
+
+## APP Android
+The Frontend JAVA can be found [here](https://github.com/GestRepair/GestRepairAPPAndroid)
 
 ## HOW TO USED
 1. Ensure that the database server is turned on.
